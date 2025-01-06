@@ -7,7 +7,7 @@
                     <div class="col-lg-5 text-center mx-auto">
                         <h1 class="text-white mb-2 mt-5">{{ __('Bienvenue !') }}</h1>
                         <p class="text-lead text-white">
-                        {{ __('Créer un compte ou connectez vous pour accéder à l\'application Afjfrance.') }}
+                        {{ __('Créer un compte pour accéder à l\'application Afjfrance.') }}
                         </p>
                     </div>
                 </div>
