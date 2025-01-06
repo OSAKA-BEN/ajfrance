@@ -7,18 +7,9 @@
             {{-- If the user is authenticated on the static sign in or the login page --}}
         @elseif (in_array(request()->route()->getName(),['sign-in', 'login'],))
             {{ $slot }}
-        @elseif (in_array(request()->route()->getName(),['profile', 'my-profile'],))
-            <div class="main-content position-relative bg-gray-100">
-                @include('layouts.navbars.auth.nav-profile')
-                <div>
-                    {{ $slot }}
-                </div>
-            </div>
-            @include('components.plugins.fixed-plugin')
         @else
             @include('layouts.navbars.auth.sidebar')
             @include('layouts.navbars.auth.nav')
-            @include('components.plugins.fixed-plugin')
             {{ $slot }}
         @endif
     @endauth

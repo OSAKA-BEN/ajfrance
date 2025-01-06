@@ -24,12 +24,15 @@ class SignUp extends Component
         }
     }
 
-    public function register() {
-        $this->validate();
+    public function store()
+    {
+        $attributes = $this->validate();
+        
         $user = User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password)
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
+            'password' => Hash::make($attributes['password']),
+            'role' => 'guest'
         ]);
 
         auth()->login($user);
