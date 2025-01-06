@@ -2,7 +2,7 @@
     {{-- If the user is authenticated --}}
     @auth()
         {{-- If the user is authenticated on the static sign up or the sign up page --}}
-        @if (in_array(request()->route()->getName(),['static-sign-up', 'sign-up'],))
+        @if (in_array(request()->route()->getName(),['sign-up'],))
             {{ $slot }}
             {{-- If the user is authenticated on the static sign in or the login page --}}
         @elseif (in_array(request()->route()->getName(),['sign-in', 'login'],))

@@ -111,8 +111,8 @@
                                     </div>
                                     @error('password') <div class="text-danger">{{ $message }}</div> @enderror
                                 </div>
-                                <div class="form-check form-check-info text-left">
-                                    <input class="form-check-info" type="checkbox" value="" id="flexCheckDefault"
+                                <div class="form-check text-left">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                                     checked>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         {{ __('J\'accepte les') }} <a href="javascript:;"
