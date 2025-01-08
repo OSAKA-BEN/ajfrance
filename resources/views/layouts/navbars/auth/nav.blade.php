@@ -22,7 +22,7 @@
                             <span class="nav-link-text ms-1">User Profile</span>
                         </a>
                     </li>
-                    <li class="nav-item d-flex align-items-center border px-2 rounded-3 bg-primary">
+                    <li class="nav-item d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                             <livewire:auth.logout />
                         </a>

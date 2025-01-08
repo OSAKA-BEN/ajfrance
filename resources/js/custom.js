@@ -1,34 +1,41 @@
 "use strict";
+// Verify navbar blur on scroll
 (function() {
-  var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+    var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-  if (isWindows) {
-    // if we are on windows OS we activate the perfectScrollbar function
-    if (document.getElementsByClassName('main-content')[0]) {
-      var mainpanel = document.querySelector('.main-content');
-      var ps = new PerfectScrollbar(mainpanel);
-    };
+    if (isWindows) {
+      // if we are on windows OS we activate the perfectScrollbar function
+      if (document.getElementsByClassName('main-content')[0]) {
+        var mainpanel = document.querySelector('.main-content');
+        var ps = new PerfectScrollbar(mainpanel);
+      };
 
-    if (document.getElementsByClassName('sidenav')[0]) {
-      var sidebar = document.querySelector('.sidenav');
-      var ps1 = new PerfectScrollbar(sidebar);
-    };
+      if (document.getElementsByClassName('sidenav')[0]) {
+        var sidebar = document.querySelector('.sidenav');
+        var ps1 = new PerfectScrollbar(sidebar);
+      };
 
-    if (document.getElementsByClassName('navbar-collapse')[0]) {
-      var fixedplugin = document.querySelector('.navbar:not(.navbar-expand-lg) .navbar-collapse');
-      var ps2 = new PerfectScrollbar(fixedplugin);
-    };
+      if (document.getElementsByClassName('navbar-collapse')[0]) {
+        var fixedplugin = document.querySelector('.navbar-collapse');
+        var ps2 = new PerfectScrollbar(fixedplugin);
+      };
 
-    if (document.getElementsByClassName('fixed-plugin')[0]) {
-      var fixedplugin = document.querySelector('.fixed-plugin');
-      var ps3 = new PerfectScrollbar(fixedplugin);
+      if (document.getElementsByClassName('fixed-plugin')[0]) {
+        var fixedplugin = document.querySelector('.fixed-plugin');
+        var ps3 = new PerfectScrollbar(fixedplugin);
+      };
     };
-  };
 })();
 
-// Verify navbar blur on scroll
-navbarBlurOnScroll('navbarBlur');
+if (document.getElementById('navbarBlur')) {
+  navbarBlurOnScroll('navbarBlur');
+}
 
+// initialization of Popovers
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
 
 // initialization of Tooltips
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -36,8 +43,156 @@ var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-// Fixed Plugin
+//
+// Widget Calendar
+//
 
+if (document.querySelector('[data-toggle="widget-calendar"]')) {
+  var calendarEl = document.querySelector('[data-toggle="widget-calendar"]');
+  var today = new Date();
+  var mYear = today.getFullYear();
+  var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var mDay = weekday[today.getDay()];
+
+  var m = today.getMonth();
+  var d = today.getDate();
+  document.getElementsByClassName('widget-calendar-year')[0].innerHTML = mYear;
+  document.getElementsByClassName('widget-calendar-day')[0].innerHTML = mDay;
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    contentHeight: 'auto',
+    initialView: 'dayGridMonth',
+    selectable: true,
+    initialDate: '2020-12-01',
+    editable: true,
+    headerToolbar: false,
+    events: [{
+        title: 'Call with Dave',
+        start: '2020-11-18',
+        end: '2020-11-18',
+        className: 'bg-gradient-danger'
+      },
+
+      {
+        title: 'Lunch meeting',
+        start: '2020-11-21',
+        end: '2020-11-22',
+        className: 'bg-gradient-warning'
+      },
+
+      {
+        title: 'All day conference',
+        start: '2020-11-29',
+        end: '2020-11-29',
+        className: 'bg-gradient-success'
+      },
+
+      {
+        title: 'Meeting with Mary',
+        start: '2020-12-01',
+        end: '2020-12-01',
+        className: 'bg-gradient-info'
+      },
+
+      {
+        title: 'Winter Hackaton',
+        start: '2020-12-03',
+        end: '2020-12-03',
+        className: 'bg-gradient-danger'
+      },
+
+      {
+        title: 'Digital event',
+        start: '2020-12-07',
+        end: '2020-12-09',
+        className: 'bg-gradient-warning'
+      },
+
+      {
+        title: 'Marketing event',
+        start: '2020-12-10',
+        end: '2020-12-10',
+        className: 'bg-gradient-primary'
+      },
+
+      {
+        title: 'Dinner with Family',
+        start: '2020-12-19',
+        end: '2020-12-19',
+        className: 'bg-gradient-danger'
+      },
+
+      {
+        title: 'Black Friday',
+        start: '2020-12-23',
+        end: '2020-12-23',
+        className: 'bg-gradient-info'
+      },
+
+      {
+        title: 'Cyber Week',
+        start: '2020-12-02',
+        end: '2020-12-02',
+        className: 'bg-gradient-warning'
+      },
+
+    ]
+  });
+  calendar.render();
+}
+
+// when input is focused add focused class for style
+window.focused = function(el) {
+  if (el.parentElement.classList.contains('input-group')) {
+    el.parentElement.classList.add('focused');
+  }
+}
+
+// when input is focused remove focused class for style
+window.defocused = function (el) {
+  if (el.parentElement.classList.contains('input-group')) {
+    el.parentElement.classList.remove('focused');
+  }
+}
+
+// helper for adding on all elements multiple attributes
+function setAttributes(el, options) {
+  Object.keys(options).forEach(function(attr) {
+    el.setAttribute(attr, options[attr]);
+  })
+}
+
+// adding on inputs attributes for calling the focused and defocused functions
+if (document.querySelectorAll('.input-group').length != 0) {
+  var allInputs = document.querySelectorAll('input.form-control');
+  allInputs.forEach(el => setAttributes(el, {
+    "onfocus": "focused(this)",
+    "onfocusout": "defocused(this)"
+  }));
+}
+
+// Multi Level Dropdown
+function dropDown(a) {
+  if (!document.querySelector('.dropdown-hover')) {
+    event.stopPropagation();
+    event.preventDefault();
+    var multilevel = a.parentElement.parentElement.children;
+
+    for (var i = 0; i < multilevel.length; i++) {
+      if (multilevel[i].lastElementChild != a.parentElement.lastElementChild) {
+        multilevel[i].lastElementChild.classList.remove('show');
+      }
+    }
+
+    if (!a.nextElementSibling.classList.contains("show")) {
+      a.nextElementSibling.classList.add("show");
+    } else {
+      a.nextElementSibling.classList.remove("show");
+    }
+  }
+}
+
+// Fixed Plugin
 if (document.querySelector('.fixed-plugin')) {
   var fixedPlugin = document.querySelector('.fixed-plugin');
   var fixedPluginButton = document.querySelector('.fixed-plugin-button');
@@ -80,12 +235,177 @@ if (document.querySelector('.fixed-plugin')) {
   }
 
   if (navbar) {
-    if (navbar.getAttribute('navbar-scroll') == 'true') {
+    if (navbar.getAttribute('navbar-scroll') == 'true' && buttonNavbarFixed) {
       buttonNavbarFixed.setAttribute("checked", "true");
     }
   }
 
 }
+
+//Set Sidebar Color
+window.sidebarColor = function(a) {
+  var parent = a.parentElement.children;
+  var color = a.getAttribute("data-color");
+
+  for (var i = 0; i < parent.length; i++) {
+    parent[i].classList.remove('active');
+  }
+
+  if (!a.classList.contains('active')) {
+    a.classList.add('active');
+  } else {
+    a.classList.remove('active');
+  }
+
+  var sidebar = document.querySelector('.sidenav');
+  sidebar.setAttribute("data-color", color);
+
+  var sidenavCard = document.querySelector('#sidenavCard');
+  let sidenavCardClasses = ['card', 'card-background', 'shadow-none', 'card-background-mask-' + color];
+  sidenavCard.className = '';
+  sidenavCard.classList.add(...sidenavCardClasses);
+
+  var sidenavCardIcon = document.querySelector('#sidenavCardIcon');
+  let sidenavCardIconClasses = ['ni', 'ni-diamond', 'text-gradient', 'text-lg', 'top-0', 'text-' + color];
+  sidenavCardIcon.className = '';
+  sidenavCardIcon.classList.add(...sidenavCardIconClasses);
+}
+
+//Set Sidebar Type
+window.sidebarType = function(a) {
+  var parent = a.parentElement.children;
+  var color = a.getAttribute("data-class");
+
+  for (var i = 0; i < parent.length; i++) {
+    parent[i].classList.remove('active');
+  }
+
+  if (!a.classList.contains('active')) {
+    a.classList.add('active');
+  } else {
+    a.classList.remove('active');
+  }
+
+  var sidebar = document.querySelector('.sidenav');
+  sidebar.classList.remove('bg-transparent');
+  sidebar.classList.remove('bg-white');
+
+  sidebar.classList.add(color);
+}
+
+// Set Navbar Fixed
+window.navbarFixed = function(el) {
+  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
+  const navbar = document.getElementById('navbarBlur');
+
+  if (!el.getAttribute("checked")) {
+    navbar.classList.add(...classes);
+    navbar.setAttribute('navbar-scroll', 'true');
+    navbarBlurOnScroll('navbarBlur');
+    el.setAttribute("checked", "true");
+  } else {
+    navbar.classList.remove(...classes);
+    navbar.setAttribute('navbar-scroll', 'false');
+    navbarBlurOnScroll('navbarBlur');
+    el.removeAttribute("checked");
+  }
+};
+
+// Set Navbar Minimized
+window.navbarMinimize = function(el){
+  var sidenavShow = document.getElementsByClassName('g-sidenav-show')[0];
+
+  if (!el.getAttribute("checked")) {
+    sidenavShow.classList.remove('g-sidenav-pinned');
+    sidenavShow.classList.add('g-sidenav-hidden');
+    el.setAttribute("checked", "true");
+  } else {
+    sidenavShow.classList.remove('g-sidenav-hidden');
+    sidenavShow.classList.add('g-sidenav-pinned');
+    el.removeAttribute("checked");
+  }
+}
+
+// Navbar blur on scroll
+function navbarBlurOnScroll(id) {
+  const navbar = document.getElementById(id);
+  let navbarScrollActive = navbar ? navbar.getAttribute("navbar-scroll") : false;
+  let scrollDistance = 5;
+  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
+  let toggleClasses = ['shadow-none'];
+
+  if (navbarScrollActive == 'true') {
+    window.onscroll = debounce(function() {
+      if (window.scrollY > scrollDistance) {
+        blurNavbar();
+      } else {
+        transparentNavbar();
+      }
+    }, 10);
+  } else {
+    window.onscroll = debounce(function() {
+      transparentNavbar();
+    }, 10);
+  }
+
+window.blurNavbar = function() {
+    navbar.classList.add(...classes)
+    navbar.classList.remove(...toggleClasses)
+
+    toggleNavLinksColor('blur');
+  }
+
+window.transparentNavbar = function() {
+    navbar.classList.remove(...classes)
+    navbar.classList.add(...toggleClasses)
+
+    toggleNavLinksColor('transparent');
+  }
+
+window.toggleNavLinksColor = function(type) {
+    let navLinks = document.querySelectorAll('.navbar-main .nav-link')
+    let navLinksToggler = document.querySelectorAll('.navbar-main .sidenav-toggler-line')
+
+    if (type === "blur") {
+      navLinks.forEach(element => {
+        element.classList.remove('text-body')
+      });
+
+      navLinksToggler.forEach(element => {
+        element.classList.add('bg-dark')
+      });
+    } else if (type === "transparent") {
+      navLinks.forEach(element => {
+        element.classList.add('text-body')
+      });
+
+      navLinksToggler.forEach(element => {
+        element.classList.remove('bg-dark')
+      });
+    }
+  }
+}
+
+// Debounce Function
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
 
 // Tabs navigation
 
@@ -194,7 +514,7 @@ window.addEventListener('resize', function(event) {
 });
 
 
-function getEventTarget(e) {
+window.getEventTarget = function(e) {
   e = e || window.event;
   return e.target || e.srcElement;
 }
@@ -202,166 +522,31 @@ function getEventTarget(e) {
 // End tabs navigation
 
 
-//Set Sidebar Color
-window.sidebarColor = function(a) {
-  var parent = a.parentElement.children;
-  var color = a.getAttribute("data-color");
+// click to minimize the sidebar or reverse to normal
+if (document.querySelector('.sidenav-toggler')) {
+  var sidenavToggler = document.getElementsByClassName('sidenav-toggler')[0];
+  var sidenavShow = document.getElementsByClassName('g-sidenav-show')[0];
+  var toggleNavbarMinimize = document.getElementById('navbarMinimize');
 
-  for (var i = 0; i < parent.length; i++) {
-    parent[i].classList.remove('active');
-  }
-
-  if (!a.classList.contains('active')) {
-    a.classList.add('active');
-  } else {
-    a.classList.remove('active');
-  }
-
-  var sidebar = document.querySelector('.sidenav');
-  sidebar.setAttribute("data-color", color);
-
-  if (document.querySelector('#sidenavCard')) {
-    var sidenavCard = document.querySelector('#sidenavCard');
-    let sidenavCardClasses = ['card', 'card-background', 'shadow-none', 'card-background-mask-' + color];
-    sidenavCard.className = '';
-    sidenavCard.classList.add(...sidenavCardClasses);
-
-    var sidenavCardIcon = document.querySelector('#sidenavCardIcon');
-    let sidenavCardIconClasses = ['ni', 'ni-diamond', 'text-gradient', 'text-lg', 'top-0', 'text-' + color];
-    sidenavCardIcon.className = '';
-    sidenavCardIcon.classList.add(...sidenavCardIconClasses);
-  }
-
-}
-
-// Set Navbar Fixed
-window.navbarFixed = function(el) {
-  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
-  const navbar = document.getElementById('navbarBlur');
-
-  if (!el.getAttribute("checked")) {
-    navbar.classList.add(...classes);
-    navbar.setAttribute('navbar-scroll', 'true');
-    navbarBlurOnScroll('navbarBlur');
-    el.setAttribute("checked", "true");
-  } else {
-    navbar.classList.remove(...classes);
-    navbar.setAttribute('navbar-scroll', 'false');
-    navbarBlurOnScroll('navbarBlur');
-    el.removeAttribute("checked");
-  }
-};
-
-// Navbar blur on scroll
-
-function navbarBlurOnScroll(id) {
-  const navbar = document.getElementById(id);
-  let navbarScrollActive = navbar ? navbar.getAttribute("navbar-scroll") : false;
-  let scrollDistance = 5;
-  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
-  let toggleClasses = ['shadow-none'];
-
-  if (navbarScrollActive == 'true') {
-    window.onscroll = debounce(function() {
-      if (window.scrollY > scrollDistance) {
-        blurNavbar();
+  if (sidenavShow) {
+    sidenavToggler.onclick = function() {
+      if (!sidenavShow.classList.contains('g-sidenav-hidden')) {
+        sidenavShow.classList.remove('g-sidenav-pinned');
+        sidenavShow.classList.add('g-sidenav-hidden');
+        if (toggleNavbarMinimize) {
+          toggleNavbarMinimize.click();
+          toggleNavbarMinimize.setAttribute("checked", "true");
+        }
       } else {
-        transparentNavbar();
+        sidenavShow.classList.remove('g-sidenav-hidden');
+        sidenavShow.classList.add('g-sidenav-pinned');
+        if (toggleNavbarMinimize) {
+          toggleNavbarMinimize.click();
+          toggleNavbarMinimize.removeAttribute("checked");
+        }
       }
-    }, 10);
-  } else {
-    window.onscroll = debounce(function() {
-      transparentNavbar();
-    }, 10);
-  }
-
-  function blurNavbar() {
-    navbar.classList.add(...classes)
-    navbar.classList.remove(...toggleClasses)
-
-    toggleNavLinksColor('blur');
-  }
-
-  function transparentNavbar() {
-    if (navbar) {
-      navbar.classList.remove(...classes)
-      navbar.classList.add(...toggleClasses)
-
-      toggleNavLinksColor('transparent');
-    }
-  }
-
-  function toggleNavLinksColor(type) {
-    let navLinks = document.querySelectorAll('.navbar-main .nav-link')
-    let navLinksToggler = document.querySelectorAll('.navbar-main .sidenav-toggler-line')
-
-    if (type === "blur") {
-      navLinks.forEach(element => {
-        element.classList.remove('text-body')
-      });
-
-      navLinksToggler.forEach(element => {
-        element.classList.add('bg-dark')
-      });
-    } else if (type === "transparent") {
-      navLinks.forEach(element => {
-        element.classList.add('text-body')
-      });
-
-      navLinksToggler.forEach(element => {
-        element.classList.remove('bg-dark')
-      });
-    }
-  }
-}
-
-
-// Debounce Function
-// Returns a function, that, as long as it continues to be invoked, will not
-// be triggered. The function will be called after it stops being called for
-// N milliseconds. If `immediate` is passed, trigger the function on the
-// leading edge, instead of the trailing.
-function debounce(func, wait, immediate) {
-  var timeout;
-  return function() {
-    var context = this,
-      args = arguments;
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
     };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
-//Set Sidebar Type
-function sidebarType(a) {
-  var parent = a.parentElement.children;
-  var color = a.getAttribute("data-class");
-
-  var colors = [];
-
-  for (var i = 0; i < parent.length; i++) {
-    parent[i].classList.remove('active');
-    colors.push(parent[i].getAttribute('data-class'));
   }
-
-  if (!a.classList.contains('active')) {
-    a.classList.add('active');
-  } else {
-    a.classList.remove('active');
-  }
-
-  var sidebar = document.querySelector('.sidenav');
-
-  for (var i = 0; i < colors.length; i++) {
-    sidebar.classList.remove(colors[i]);
-  }
-
-  sidebar.classList.add(color);
 }
 
 
@@ -396,6 +581,7 @@ function toggleSidenav() {
   }
 }
 
+
 // Resize navbar color depends on configurator active type of sidenav
 
 let referenceButtons = document.querySelector('[data-class]');
@@ -429,5 +615,574 @@ function sidenavTypeOnResize() {
     elements.forEach(function(el) {
       el.classList.remove('disabled');
     });
+  }
+}
+
+// Notification function
+function notify(el) {
+  var alert = document.createElement('div');
+  alert.classList.add('alert', 'position-absolute', 'top-0', 'border-0', 'text-white', 'w-50', 'end-0', 'start-0', 'mt-2', 'mx-auto', 'py-2');
+  alert.classList.add('alert-' + el.getAttribute('data-type'));
+  alert.style.transform = 'translate3d(0px, 0px, 0px)'
+  alert.style.opacity = '0';
+  alert.style.transition = '.35s ease';
+  setTimeout(function() {
+    alert.style.transform = 'translate3d(0px, 20px, 0px)';
+    alert.style.setProperty("opacity", "1", "important");
+  }, 100);
+
+  alert.innerHTML = '<div class="d-flex mb-1">' +
+    '<div class="alert-icon me-1">' +
+    '<i class="' + el.getAttribute('data-icon') + ' mt-1"></i>' +
+    '</div>' +
+    '<span class="alert-text"><strong>' + el.getAttribute('data-title') + '</strong></span>' +
+    '</div>' +
+    '<span class="text-sm">' + el.getAttribute('data-content') + '</span>';
+
+  el.parentElement.appendChild(alert);
+  setTimeout(function() {
+    alert.style.transform = 'translate3d(0px, 0px, 0px)'
+    alert.style.setProperty("opacity", "0", "important");
+  }, 4000);
+  setTimeout(function() {
+    el.parentElement.querySelector('.alert').remove();
+  }, 4500);
+}
+
+var soft = {
+  initFullCalendar: function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('fullCalendar');
+      var today = new Date();
+      var y = today.getFullYear();
+      var m = today.getMonth();
+      var d = today.getDate();
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        selectable: true,
+        headerToolbar: {
+          left: 'title',
+          center: 'dayGridMonth,timeGridWeek,timeGridDay',
+          right: 'prev,next today'
+        },
+        select: function(info) {
+          // on select we show the Sweet Alert modal with an input
+          Swal.fire({
+            title: 'Create an Event',
+            html: '<div class="form-group">' +
+              '<input class="form-control text-default" placeholder="Event Title" id="input-field">' +
+              '</div>',
+            showCancelButton: true,
+            customClass: {
+              confirmButton: 'btn btn-primary',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          }).then(function(result) {
+            var eventData;
+            var event_title = document.getElementById('input-field').value;
+            if (event_title) {
+              eventData = {
+                title: event_title,
+                start: info.startStr,
+                end: info.endStr
+              };
+              calendar.addEvent(eventData);
+            }
+          });
+        },
+        editable: true,
+        // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
+        events: [{
+            title: 'All Day Event',
+            start: new Date(y, m, 1),
+            className: 'event-default'
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: new Date(y, m, d - 4, 6, 0),
+            allDay: false,
+            className: 'event-rose'
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: new Date(y, m, d + 3, 6, 0),
+            allDay: false,
+            className: 'event-rose'
+          },
+          {
+            title: 'Meeting',
+            start: new Date(y, m, d - 1, 10, 30),
+            allDay: false,
+            className: 'event-green'
+          },
+          {
+            title: 'Lunch',
+            start: new Date(y, m, d + 7, 12, 0),
+            end: new Date(y, m, d + 7, 14, 0),
+            allDay: false,
+            className: 'event-red'
+          },
+          {
+            title: 'Md-pro Launch',
+            start: new Date(y, m, d - 2, 12, 0),
+            allDay: true,
+            className: 'event-azure'
+          },
+          {
+            title: 'Birthday Party',
+            start: new Date(y, m, d + 1, 19, 0),
+            end: new Date(y, m, d + 1, 22, 30),
+            allDay: false,
+            className: 'event-azure'
+          },
+          {
+            title: 'Click for Creative Tim',
+            start: new Date(y, m, 21),
+            end: new Date(y, m, 22),
+            url: 'http://www.creative-tim.com/',
+            className: 'event-orange'
+          },
+          {
+            title: 'Click for Google',
+            start: new Date(y, m, 23),
+            end: new Date(y, m, 23),
+            url: 'http://www.creative-tim.com/',
+            className: 'event-orange'
+          }
+        ]
+      });
+      calendar.render();
+    });
+  },
+  datatableSimple: function() {
+    var columnDefs = [{
+        field: 'athlete',
+        minWidth: 150,
+        sortable: true,
+        filter: true
+      },
+      {
+        field: 'age',
+        maxWidth: 90,
+        sortable: true,
+        filter: true
+      },
+      {
+        field: 'country',
+        minWidth: 150,
+        sortable: true,
+        filter: true
+      },
+      {
+        field: 'year',
+        maxWidth: 90,
+        sortable: true,
+        filter: true
+      },
+      {
+        field: 'date',
+        minWidth: 150,
+        sortable: true,
+        filter: true
+      },
+      {
+        field: 'sport',
+        minWidth: 150,
+        sortable: true,
+        filter: true
+      },
+      {
+        field: 'gold'
+      },
+      {
+        field: 'silver'
+      },
+      {
+        field: 'bronze'
+      },
+      {
+        field: 'total'
+      },
+    ];
+
+    // specify the data
+    var rowData = [{
+        "athlete": "Ronald Valencia",
+        "age": 23,
+        "country": "United States",
+        "year": 2008,
+        "date": "24/08/2008",
+        "sport": "Swimming",
+        "gold": 8,
+        "silver": 0,
+        "bronze": 0,
+        "total": 8
+      },
+      {
+        "athlete": "Lorand Frentz",
+        "age": 19,
+        "country": "United States",
+        "year": 2004,
+        "date": "29/08/2004",
+        "sport": "Swimming",
+        "gold": 6,
+        "silver": 0,
+        "bronze": 2,
+        "total": 8
+      },
+      {
+        "athlete": "Michael Phelps",
+        "age": 27,
+        "country": "United States",
+        "year": 2012,
+        "date": "12/08/2012",
+        "sport": "Swimming",
+        "gold": 4,
+        "silver": 2,
+        "bronze": 0,
+        "total": 6
+      },
+      {
+        "athlete": "Natalie Coughlin",
+        "age": 25,
+        "country": "United States",
+        "year": 2008,
+        "date": "24/08/2008",
+        "sport": "Swimming",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3,
+        "total": 6
+      },
+      {
+        "athlete": "Aleksey Nemov",
+        "age": 24,
+        "country": "Russia",
+        "year": 2000,
+        "date": "01/10/2000",
+        "sport": "Gymnastics",
+        "gold": 2,
+        "silver": 1,
+        "bronze": 3,
+        "total": 6
+      },
+      {
+        "athlete": "Alicia Coutts",
+        "age": 24,
+        "country": "Australia",
+        "year": 2012,
+        "date": "12/08/2012",
+        "sport": "Swimming",
+        "gold": 1,
+        "silver": 3,
+        "bronze": 1,
+        "total": 5
+      },
+      {
+        "athlete": "Missy Franklin",
+        "age": 17,
+        "country": "United States",
+        "year": 2012,
+        "date": "12/08/2012",
+        "sport": "Swimming",
+        "gold": 4,
+        "silver": 0,
+        "bronze": 1,
+        "total": 5
+      },
+      {
+        "athlete": "Ryan Lochte",
+        "age": 27,
+        "country": "United States",
+        "year": 2012,
+        "date": "12/08/2012",
+        "sport": "Swimming",
+        "gold": 2,
+        "silver": 2,
+        "bronze": 1,
+        "total": 5
+      },
+      {
+        "athlete": "Allison Schmitt",
+        "age": 22,
+        "country": "United States",
+        "year": 2012,
+        "date": "12/08/2012",
+        "sport": "Swimming",
+        "gold": 3,
+        "silver": 1,
+        "bronze": 1,
+        "total": 5
+      },
+      {
+        "athlete": "Natalie Coughlin",
+        "age": 21,
+        "country": "United States",
+        "year": 2004,
+        "date": "29/08/2004",
+        "sport": "Swimming",
+        "gold": 2,
+        "silver": 2,
+        "bronze": 1,
+        "total": 5
+      },
+      {
+        "athlete": "Ian Thorpe",
+        "age": 17,
+        "country": "Australia",
+        "year": 2000,
+        "date": "01/10/2000",
+        "sport": "Swimming",
+        "gold": 3,
+        "silver": 2,
+        "bronze": 0,
+        "total": 5
+      },
+      {
+        "athlete": "Dara Torres",
+        "age": 33,
+        "country": "United States",
+        "year": 2000,
+        "date": "01/10/2000",
+        "sport": "Swimming",
+        "gold": 2,
+        "silver": 0,
+        "bronze": 3,
+        "total": 5
+      },
+      {
+        "athlete": "Cindy Klassen",
+        "age": 26,
+        "country": "Canada",
+        "year": 2006,
+        "date": "26/02/2006",
+        "sport": "Speed Skating",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 2,
+        "total": 5
+      },
+      {
+        "athlete": "Nastia Liukin",
+        "age": 18,
+        "country": "United States",
+        "year": 2008,
+        "date": "24/08/2008",
+        "sport": "Gymnastics",
+        "gold": 1,
+        "silver": 3,
+        "bronze": 1,
+        "total": 5
+      },
+      {
+        "athlete": "Marit Bjørgen",
+        "age": 29,
+        "country": "Norway",
+        "year": 2010,
+        "date": "28/02/2010",
+        "sport": "Cross Country Skiing",
+        "gold": 3,
+        "silver": 1,
+        "bronze": 1,
+        "total": 5
+      },
+      {
+        "athlete": "Sun Yang",
+        "age": 20,
+        "country": "China",
+        "year": 2012,
+        "date": "12/08/2012",
+        "sport": "Swimming",
+        "gold": 2,
+        "silver": 1,
+        "bronze": 1,
+        "total": 4
+      }
+    ];
+
+    // let the grid know which columns and what data to use
+    var gridOptions = {
+      columnDefs: columnDefs,
+      rowSelection: 'multiple',
+      rowMultiSelectWithClick: true,
+      rowData: rowData
+    };
+
+    // setup the grid after the page has finished loading
+    document.addEventListener('DOMContentLoaded', function() {
+      var gridDiv = document.querySelector('#datatableSimple');
+      new agGrid.Grid(gridDiv, gridOptions);
+    });
+  },
+  initVectorMap: function() {
+    am4core.ready(function() {
+
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+
+      // Create map instance
+      var chart = am4core.create("chartdiv", am4maps.MapChart);
+
+      // Set map definition
+      chart.geodata = am4geodata_worldLow;
+
+      // Set projection
+      chart.projection = new am4maps.projections.Miller();
+
+      // Create map polygon series
+      var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+      // Exclude Antartica
+      polygonSeries.exclude = ["AQ"];
+
+      // Make map load polygon (like country names) data from GeoJSON
+      polygonSeries.useGeodata = true;
+
+      // Configure series
+      var polygonTemplate = polygonSeries.mapPolygons.template;
+      polygonTemplate.tooltipText = "{name}";
+      polygonTemplate.polygon.fillOpacity = 0.6;
+
+
+      // Create hover state and set alternative fill color
+      var hs = polygonTemplate.states.create("hover");
+      hs.properties.fill = chart.colors.getIndex(0);
+
+      // Add image series
+      var imageSeries = chart.series.push(new am4maps.MapImageSeries());
+      imageSeries.mapImages.template.propertyFields.longitude = "longitude";
+      imageSeries.mapImages.template.propertyFields.latitude = "latitude";
+      imageSeries.mapImages.template.tooltipText = "{title}";
+      imageSeries.mapImages.template.propertyFields.url = "url";
+
+      var circle = imageSeries.mapImages.template.createChild(am4core.Circle);
+      circle.radius = 3;
+      circle.propertyFields.fill = "color";
+
+      var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
+      circle2.radius = 3;
+      circle2.propertyFields.fill = "color";
+
+
+      circle2.events.on("inited", function(event) {
+        animateBullet(event.target);
+      })
+
+
+      function animateBullet(circle) {
+        var animation = circle.animate([{
+          property: "scale",
+          from: 1,
+          to: 5
+        }, {
+          property: "opacity",
+          from: 1,
+          to: 0
+        }], 1000, am4core.ease.circleOut);
+        animation.events.on("animationended", function(event) {
+          animateBullet(event.target.object);
+        })
+      }
+
+      var colorSet = new am4core.ColorSet();
+
+      imageSeries.data = [{
+        "title": "Brussels",
+        "latitude": 50.8371,
+        "longitude": 4.3676,
+        "color": colorSet.next()
+      }, {
+        "title": "Copenhagen",
+        "latitude": 55.6763,
+        "longitude": 12.5681,
+        "color": colorSet.next()
+      }, {
+        "title": "Paris",
+        "latitude": 48.8567,
+        "longitude": 2.3510,
+        "color": colorSet.next()
+      }, {
+        "title": "Reykjavik",
+        "latitude": 64.1353,
+        "longitude": -21.8952,
+        "color": colorSet.next()
+      }, {
+        "title": "Moscow",
+        "latitude": 55.7558,
+        "longitude": 37.6176,
+        "color": colorSet.next()
+      }, {
+        "title": "Madrid",
+        "latitude": 40.4167,
+        "longitude": -3.7033,
+        "color": colorSet.next()
+      }, {
+        "title": "London",
+        "latitude": 51.5002,
+        "longitude": -0.1262,
+        "url": "http://www.google.co.uk",
+        "color": colorSet.next()
+      }, {
+        "title": "Peking",
+        "latitude": 39.9056,
+        "longitude": 116.3958,
+        "color": colorSet.next()
+      }, {
+        "title": "New Delhi",
+        "latitude": 28.6353,
+        "longitude": 77.2250,
+        "color": colorSet.next()
+      }, {
+        "title": "Tokyo",
+        "latitude": 35.6785,
+        "longitude": 139.6823,
+        "url": "http://www.google.co.jp",
+        "color": colorSet.next()
+      }, {
+        "title": "Ankara",
+        "latitude": 39.9439,
+        "longitude": 32.8560,
+        "color": colorSet.next()
+      }, {
+        "title": "Buenos Aires",
+        "latitude": -34.6118,
+        "longitude": -58.4173,
+        "color": colorSet.next()
+      }, {
+        "title": "Brasilia",
+        "latitude": -15.7801,
+        "longitude": -47.9292,
+        "color": colorSet.next()
+      }, {
+        "title": "Ottawa",
+        "latitude": 45.4235,
+        "longitude": -75.6979,
+        "color": colorSet.next()
+      }, {
+        "title": "Washington",
+        "latitude": 38.8921,
+        "longitude": -77.0241,
+        "color": colorSet.next()
+      }, {
+        "title": "Kinshasa",
+        "latitude": -4.3369,
+        "longitude": 15.3271,
+        "color": colorSet.next()
+      }, {
+        "title": "Cairo",
+        "latitude": 30.0571,
+        "longitude": 31.2272,
+        "color": colorSet.next()
+      }, {
+        "title": "Pretoria",
+        "latitude": -25.7463,
+        "longitude": 28.1876,
+        "color": colorSet.next()
+      }];
+    }); // end am4core.ready()
   }
 }

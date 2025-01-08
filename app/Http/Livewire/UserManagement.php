@@ -3,18 +3,25 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\User;
 
 class UserManagement extends Component
 {
+    use WithPagination;
+
     public $userIdToDelete;
     public $isEditing = false;
     public $editUserId;
-    
+
     public function render()
     {
+        $allUsers = User::all();
+        $paginatedUsers = User::simplePaginate(10);
+
         return view('livewire.users-management', [
-            'users' => User::all()
+            'users' => $paginatedUsers,
+            'allUsers' => $allUsers
         ]);
     }
 
@@ -53,12 +60,27 @@ class UserManagement extends Component
         $user->update(['credits' => max(0, (int)$credits)]);
     }
     
-    public function confirmDelete($userId)
+    public function edit($userId)
     {
-        $this->userIdToDelete = $userId;
-        $this->dispatchBrowserEvent('show-delete-modal');
+        if (auth()->user()->role !== 'admin') {
+            return;
+        }
+        
+        $this->editUserId = $userId;
+        $this->isEditing = true;
+        return redirect()->route('user.edit', $userId);
     }
-    
+
+    public function confirmUserDeletion($userId)
+    {
+        if (auth()->user()->role !== 'admin') {
+            return;
+        }
+        
+        $this->userIdToDelete = $userId;
+        $this->dispatch('show-delete-modal');
+    }
+
     public function deleteUser()
     {
         if (auth()->user()->role !== 'admin') {
@@ -68,21 +90,7 @@ class UserManagement extends Component
         $user = User::find($this->userIdToDelete);
         if ($user) {
             $user->delete();
-            session()->flash('message', 'Utilisateur supprimé avec succès.');
+            $this->dispatch('hide-delete-modal', ['message' => 'Utilisateur supprimé avec succès']);
         }
-        
-        $this->dispatchBrowserEvent('hide-delete-modal');
-    }
-    
-    public function edit($userId)
-    {
-        if (auth()->user()->role !== 'admin') {
-            return;
-        }
-        
-        $this->editUserId = $userId;
-        $this->isEditing = true;
-        // Rediriger vers la page d'édition ou charger les données dans un formulaire modal
-        return redirect()->route('user.edit', $userId);
     }
 }

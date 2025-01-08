@@ -3,6 +3,7 @@
 
   .navbar-brand {
     color: $dark;
+    @include font-size($font-size-sm);
   }
   .nav-link {
     color: $dark;
@@ -133,8 +134,8 @@
   .navbar {
     &.navbar-transparent {
       .navbar-collapse {
-        padding-top: $spacer * 0.5;
-        padding-bottom: $spacer * 0.5;
+        padding-top: $spacer / 2;
+        padding-bottom: $spacer / 2;
       }
 
       .navbar-collapse.collapsing {
@@ -151,10 +152,9 @@
     }
 
     .g-sidenav-show & {
-      &:not(.sidenav).navbar-main,
-      &:not(.mixed-navbar) {
+      &:not(.sidenav).navbar-main {
         .navbar-collapse {
-        //   display: flex !important;
+          display: flex !important;
           flex-basis: auto;
         }
 

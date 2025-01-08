@@ -13,10 +13,15 @@ use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tables;
 use App\Http\Livewire\Rtl;
 use App\Http\Livewire\CalendarManagement;
-use App\Http\Livewire\LaravelExamples\UserProfile;
+use App\Http\Livewire\UserProfile;
 use App\Http\Livewire\UserManagement;
+use App\Http\Livewire\NewUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
+
+use App\Http\Livewire\Auth\Error404;
+use App\Http\Livewire\Auth\Error500;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +45,9 @@ Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-passwo
 
 Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')->middleware('signed');
 
+Route::get('/404', Error404::class)->name('404');
+Route::get('/500', Error500::class)->name('500');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/calendar', Calendar::class)->name('calendar');
@@ -51,6 +59,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/users-management', UserManagement::class)->name('users-management');
     Route::get('/calendar-management', CalendarManagement::class)->name('calendar-management');
+    Route::get('/users-new', NewUser::class)->name('new-user');
     // Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     // Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
 });

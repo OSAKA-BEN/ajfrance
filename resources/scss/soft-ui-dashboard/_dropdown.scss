@@ -5,55 +5,25 @@
   .dropend {
     .dropdown-menu {
       box-shadow: $dropdown-box-shadow;
+      transition: $dropdown-transition;
       cursor: pointer;
     }
 
     .dropdown-toggle {
-      &:after,
-      &:before{
+      &:after{
+        content: "\f107";
         font: normal normal normal 14px/1 FontAwesome;
         border: none;
         vertical-align: middle;
         font-weight: $font-weight-bold;
       }
       &.show{
-        &:after,
-        &:before{
+        &:after{
           transform: $dropdown-toggle-arrow-transform;
         }
       }
-      &:after,
-      &:before{
+      &:after{
          transition: $dropdown-toggle-arrow-transition;
-      }
-    }
-  }
-
-  .dropdown,
-  .dropup{
-    .dropdown-menu{
-      transition: $dropdown-transition;
-    }
-
-    .dropdown-toggle {
-      &:after{
-        content: "\f107";
-      }
-    }
-  }
-
-  .dropstart{
-    .dropdown-toggle {
-      &:before{
-        content: "\f104";
-      }
-    }
-  }
-
-  .dropend{
-    .dropdown-toggle {
-      &:after{
-        content: "\f105";
       }
     }
   }
@@ -172,12 +142,10 @@
       background-color: transparent;
       overflow: scroll;
       position: relative;
-      transform: none !important;
-      box-shadow: none !important;
     }
   }
 
-  :not(.navbar) .dropdown {
+  .dropdown {
     .dropdown-menu {
       opacity: 0;
       top: 0;
@@ -210,6 +178,7 @@
       opacity: 1;
       pointer-events: auto;
       visibility: visible;
+      transform: $dropdown-transform-show;
 
       &:before {
         top: $dropdown-hover-arrow-active-top;
@@ -236,16 +205,6 @@
     &.show {
       height: 250px;
       opacity: 1;
-    }
-  }
-
-  .navbar.blur {
-    .dropdown {
-      .dropdown-menu.show {
-        transform: $dropdown-transform-responsive-show;
-        box-shadow: none;
-        margin-bottom: 1rem;  
-      }
     }
   }
 }
