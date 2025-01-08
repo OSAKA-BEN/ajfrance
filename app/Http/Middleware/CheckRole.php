@@ -9,8 +9,8 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (!$request->user() || !in_array($request->user()->role, $roles)) {
-            abort(403, 'Accès non autorisé.');
+        if (!auth()->check() || !in_array(auth()->user()->role, $roles)) {
+            return redirect()->route('dashboard');
         }
 
         return $next($request);

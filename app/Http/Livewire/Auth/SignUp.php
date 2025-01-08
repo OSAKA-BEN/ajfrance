@@ -32,7 +32,8 @@ class SignUp extends Component
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'password' => Hash::make($attributes['password']),
-            'role' => 'guest'
+            'role' => 'guest',
+            'credits' => 2
         ]);
 
         auth()->login($user);

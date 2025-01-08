@@ -8,14 +8,15 @@ use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Billing;
+use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tables;
 use App\Http\Livewire\Rtl;
-
+use App\Http\Livewire\CalendarManagement;
 use App\Http\Livewire\LaravelExamples\UserProfile;
-use App\Http\Livewire\LaravelExamples\UserManagement;
-
+use App\Http\Livewire\UserManagement;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,14 +42,17 @@ Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')-
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    Route::get('/calendar', Calendar::class)->name('calendar');
     Route::get('/billing', Billing::class)->name('billing');
     Route::get('/tables', Tables::class)->name('tables');
-    Route::get('/laravel-user-profile', UserProfile::class)->name('user-profile');
-    Route::get('/laravel-user-management', UserManagement::class)->name('user-management');
+    Route::get('/user-profile', UserProfile::class)->name('user-profile');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    // Routes accessibles uniquement aux admins
+    Route::get('/users-management', UserManagement::class)->name('users-management');
+    Route::get('/calendar-management', CalendarManagement::class)->name('calendar-management');
+    // Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    // Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
 });
 
 Route::middleware(['auth', 'role:teacher,admin'])->group(function () {

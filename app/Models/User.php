@@ -45,7 +45,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'credits'
     ];
 
     public function isAdmin()
@@ -71,5 +72,10 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return $this->role === $role;
+    }
+
+    public function canHaveCredits()
+    {
+        return in_array($this->role, ['student', 'guest']);
     }
 }

@@ -1,4 +1,4 @@
-<div>
+<main>
     <div class="container-fluid">
         <div class="page-header min-height-300 border-radius-xl mt-4"
             style="background-image: url('../assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
@@ -26,6 +26,19 @@
                         </p>
                     </div>
                 </div>
+                @if($user->canHaveCredits())
+                <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                    <div class="nav-wrapper position-relative end-0">
+                        <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
+                            <li class="nav-link text-xl">
+                                <i class="bi bi-currency-exchange fs-4"></i>
+                                <span class="fs-4">{{ $user->canHaveCredits() ? $user->credits : '0' }}</span>
+                                <span class="fs-6">credits</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -119,4 +132,4 @@
             </div>
         </div>
     </div>
-</div>
+</main>

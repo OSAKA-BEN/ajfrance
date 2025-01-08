@@ -87,7 +87,7 @@
                         </div> -->
                         <div class="card-body">
 
-                            <form wire:submit="register" action="#" method="POST" role="form text-left">
+                            <form wire:submit="store" action="#" method="POST" role="form text-left">
                                 <div class="mb-3">
                                     <div class="@error('name') border border-danger rounded-3  @enderror">
                                         <input wire:model.live="name" type="text" class="form-control" placeholder="Name"

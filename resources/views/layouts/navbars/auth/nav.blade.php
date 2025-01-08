@@ -13,7 +13,7 @@
                     {{ str_replace('-', ' ', Route::currentRouteName()) }}</h6>
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 d-flex justify-content-end align-items-center gap-4" id="navbar">
-                <span>Vous êtes connecté en tant que {{ Auth::user()->name }}</span>
+                <span>You are logged in as {{ Auth::user()->role }}</span>
                 <ul class="navbar-nav justify-content-end gap-2">
                     <li class="nav-item d-flex align-items-center border px-2 bg-white rounded-3">
                         <a class="nav-link {{ Route::currentRouteName() == 'user-profile' ? 'active' : '' }}"
@@ -22,7 +22,7 @@
                             <span class="nav-link-text ms-1">User Profile</span>
                         </a>
                     </li>
-                    <li class="nav-item d-flex align-items-center border px-2 bg-white rounded-3">
+                    <li class="nav-item d-flex align-items-center border px-2 rounded-3 bg-primary">
                         <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                             <livewire:auth.logout />
                         </a>
