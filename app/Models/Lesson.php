@@ -10,8 +10,10 @@ class Lesson extends Model
     protected $fillable = [
         'teacher_id',
         'student_id',
-        'status',
-        'date'
+        'start_datetime',
+        'end_datetime',
+        'lesson_type',
+        'status'
     ];
 
     protected $casts = [

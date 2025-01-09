@@ -49,8 +49,8 @@
             </li>
             @if(auth()->user()->isStudent() || auth()->user()->isGuest())
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}"
-                    href="{{ route('dashboard') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'lesson-reservation' ? 'active' : '' }}"
+                    href="{{ route('lesson-reservation') }}">
                     <i class="bi bi-plus-square-fill"></i>
                     <span class="nav-link-text ms-1">Take a lesson</span>
                 </a>

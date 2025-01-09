@@ -1,9 +1,11 @@
 <main class="main-content mt-1 border-radius-lg">
+    @if($lessons->count() > 0)
     <div class="container-fluid py-4">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <h5>{{ __('List of Lessons') }}</h5>
+                    <p class="text-sm">List of your lessons</p>
                 </div>
                 <div class="px-3 pt-4">
                     {{ $lessons->links() }}
@@ -23,6 +25,7 @@
                                     @endif
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Date') }}</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Statut') }}</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Type') }}</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
@@ -78,9 +81,9 @@
                                             </td>
                                         @endif
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $lesson->date->format('d/m/y') }}</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $lesson->formatted_start_datetime }}</span>
                                             <br>
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $lesson->date->format('H:i') }}</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $lesson->formatted_start_time }} - {{ $lesson->formatted_end_time }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             @if($lesson->status === 'reserved')
@@ -92,7 +95,10 @@
                                             @endif
                                         </td>
                                         <td class="align-middle text-center ">
-                                            @if($lesson->status === 'reserved' && $lesson->date->isFuture())
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $lesson->lesson_type }}</span>
+                                        </td>
+                                        <td class="align-middle text-center ">
+                                            @if($lesson->status === 'reserved' && \Carbon\Carbon::parse($lesson->start_datetime)->isFuture())
                                                 <button wire:click="cancelLesson({{ $lesson->id }})" 
                                                         class="btn btn-danger btn-sm text-xs mb-0 px-2 py-1" 
                                                         data-toggle="tooltip" 
@@ -110,4 +116,7 @@
             </div>
         </div>
     </div>
+    @else
+    <p>No lessons found !</p>
+    @endif
 </main>

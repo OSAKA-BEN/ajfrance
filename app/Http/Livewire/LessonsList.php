@@ -17,18 +17,25 @@ class LessonsList extends Component
 
         if ($user->isAdmin()) {
             $lessons = Lesson::with(['teacher', 'student'])
-                ->orderBy('date', 'desc')
+                ->orderBy('start_datetime', 'desc')
                 ->simplePaginate(10);
         } elseif ($user->isTeacher()) {
             $lessons = Lesson::where('teacher_id', $user->id)
                 ->with('student')
-                ->orderBy('date', 'desc')
+                ->orderBy('start_datetime', 'desc')
                 ->simplePaginate(10);
         } else {
             $lessons = Lesson::where('student_id', $user->id)
                 ->with('teacher')
-                ->orderBy('date', 'desc')
+                ->orderBy('start_datetime', 'desc')
                 ->simplePaginate(10);
+        }
+
+        // Convertir les dates en format souhaité
+        foreach ($lessons as $lesson) {
+            $lesson->formatted_start_datetime = \Carbon\Carbon::parse($lesson->start_datetime)->format('d/m/y');
+            $lesson->formatted_start_time = \Carbon\Carbon::parse($lesson->start_datetime)->format('H:i');
+            $lesson->formatted_end_time = \Carbon\Carbon::parse($lesson->end_datetime)->format('H:i');
         }
 
         return view('livewire.lessons-list', [
@@ -46,11 +53,13 @@ class LessonsList extends Component
             $lesson->teacher_id === $user->id || 
             $lesson->student_id === $user->id) {
             
-            if ($lesson->date->isFuture() && $lesson->status === 'reserved') {
+            // Convertir start_datetime en objet Carbon pour vérifier si c'est dans le futur
+            $startDateTime = \Carbon\Carbon::parse($lesson->start_datetime);
+
+            if ($startDateTime->isFuture() && $lesson->status === 'reserved') {
                 $lesson->update([
                     'status' => 'cancelled'
                 ]);
-
             }
         }
     }

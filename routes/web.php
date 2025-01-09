@@ -24,6 +24,7 @@ use App\Http\Livewire\LessonsList;
 use Illuminate\Http\Request;
 use App\Http\Livewire\Auth\Error404;
 use App\Http\Livewire\Auth\Error500;
+use App\Http\Livewire\LessonReservation;
 
 
 /*
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tables', Tables::class)->name('tables');
     Route::get('/user-profile', UserProfile::class)->name('user-profile');
     Route::get('/lessons', LessonsList::class)->name('lessons');
+    Route::get('/lesson-reservation', LessonReservation::class)->name('lesson-reservation');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

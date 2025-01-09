@@ -96,4 +96,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Lesson::class, 'student_id');
     }
+
+    public function availabilities()
+    {
+        return $this->hasMany(Availability::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'teacher_id');
+    }
+
+    public function studentReservations()
+    {
+        return $this->hasMany(Reservation::class, 'student_id');
+    }
 }
