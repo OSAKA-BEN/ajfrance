@@ -86,4 +86,14 @@ class User extends Authenticatable
     {
         return in_array($this->role, ['student', 'guest']);
     }
+
+    public function teachingLessons()
+    {
+        return $this->hasMany(Lesson::class, 'teacher_id');
+    }
+
+    public function bookedLessons()
+    {
+        return $this->hasMany(Lesson::class, 'student_id');
+    }
 }

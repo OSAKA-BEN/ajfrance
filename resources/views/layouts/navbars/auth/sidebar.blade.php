@@ -8,7 +8,7 @@
         </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse w-auto h-auto" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse w-auto h-full" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             @if(auth()->user()->role === 'admin')
                 <li class="nav-item">
@@ -47,6 +47,7 @@
             <li class="nav-item mt-4">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Lessons</h6>
             </li>
+            @if(auth()->user()->isStudent() || auth()->user()->isGuest())
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}"
                     href="{{ route('dashboard') }}">
@@ -54,9 +55,10 @@
                     <span class="nav-link-text ms-1">Take a lesson</span>
                 </a>
             </li>
+            @endif
             <li class="nav-item pb-2">
-                <a class="nav-link {{ Route::currentRouteName() == 'tables' ? 'active' : '' }}"
-                    href="{{ route('tables') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'lessons' ? 'active' : '' }}"
+                    href="{{ route('lessons') }}">
                     <i class="bi bi-journal-bookmark-fill"></i>
                     <span class="nav-link-text ms-1">List of Lessons</span>
                 </a>

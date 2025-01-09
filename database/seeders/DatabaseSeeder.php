@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Database\Seeders\LessonSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,7 +43,7 @@ class DatabaseSeeder extends Seeder
             User::create([
                 'name' => "Student $i",
                 'email' => "student$i@test.com",
-                'password' => Hash::make('123*'),
+                'password' => Hash::make(' '),
                 'role' => 'student',
                 'address' => "$i Student Avenue",
                 'city' => 'Student City',
@@ -68,5 +69,9 @@ class DatabaseSeeder extends Seeder
                 'country' => 'France'
             ]);
         }
+
+        $this->call([
+            LessonSeeder::class,
+        ]);
     }
 }

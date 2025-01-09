@@ -18,6 +18,8 @@ use App\Http\Livewire\UserManagement;
 use App\Http\Livewire\NewUser;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\EditUser;
+use App\Http\Livewire\LessonsList;
+
 
 use Illuminate\Http\Request;
 use App\Http\Livewire\Auth\Error404;
@@ -55,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/billing', Billing::class)->name('billing');
     Route::get('/tables', Tables::class)->name('tables');
     Route::get('/user-profile', UserProfile::class)->name('user-profile');
+    Route::get('/lessons', LessonsList::class)->name('lessons');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
