@@ -47,16 +47,14 @@ class User extends Authenticatable
         'password',
         'phone',
         'about',
-        'country',
         'address',
         'city',
         'state',
         'zipcode',
+        'country',
         'profile_image',
         'role',
-        'credits',
-        'zipcode',
-        'profile_image',
+        'credits'
     ];
 
     public function isAdmin()

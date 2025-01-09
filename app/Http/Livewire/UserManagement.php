@@ -13,6 +13,12 @@ class UserManagement extends Component
     public $userIdToDelete;
     public $isEditing = false;
     public $editUserId;
+    
+    // Ajout des propriétés pour les notifications
+    public $showSuccessNotification = false;
+    public $showErrorNotification = false;
+    public $errorMessage = '';
+    public $successMessage = '';
 
     public function render()
     {
@@ -59,17 +65,6 @@ class UserManagement extends Component
 
         $user->update(['credits' => max(0, (int)$credits)]);
     }
-    
-    public function edit($userId)
-    {
-        if (auth()->user()->role !== 'admin') {
-            return;
-        }
-        
-        $this->editUserId = $userId;
-        $this->isEditing = true;
-        return redirect()->route('user.edit', $userId);
-    }
 
     public function confirmUserDeletion($userId)
     {
@@ -87,10 +82,19 @@ class UserManagement extends Component
             return;
         }
         
-        $user = User::find($this->userIdToDelete);
-        if ($user) {
-            $user->delete();
-            $this->dispatch('hide-delete-modal', ['message' => 'Utilisateur supprimé avec succès']);
+        try {
+            $user = User::find($this->userIdToDelete);
+            if ($user) {
+                $user->delete();
+                $this->showSuccessNotification = true;
+                $this->successMessage = 'User deleted successfully';
+                $this->showErrorNotification = false;
+                $this->dispatch('hide-delete-modal');
+            }
+        } catch (\Exception $e) {
+            $this->showErrorNotification = true;
+            $this->errorMessage = "Error: " . $e->getMessage();
+            $this->showSuccessNotification = false;
         }
     }
 }

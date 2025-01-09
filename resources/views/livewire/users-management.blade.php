@@ -1,91 +1,110 @@
 <main class="main-content mt-1 border-radius-lg">
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Guests</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      {{ $allUsers->where('role', 'guest')->count() }}
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                  <i class="bi bi-person-add text-lg opacity-10"></i>
-                  </div>
-                </div>
-              </div>
+        {{-- Ajout des notifications --}}
+        @if ($showSuccessNotification)
+            <div class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+                <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
+                <span class="alert-text text-white">{{ $successMessage }}</span>
+                <button wire:click="$set('showSuccessNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
             </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Students</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      {{ $allUsers->where('role', 'student')->count() }}
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                  <i class="bi bi-people text-lg opacity-10"></i>
-                  </div>
-                </div>
-              </div>
+        @endif
+
+        @if ($showErrorNotification)
+            <div class="mt-3 alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
+                <span class="alert-text text-white">{{ $errorMessage }}</span>
+                <button wire:click="$set('showErrorNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
             </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Teachers</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      {{ $allUsers->where('role', 'teacher')->count() }}
-                    </h5>
-                  </div>
+        @endif
+
+        <div class="row">
+            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Guests</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        {{ $allUsers->where('role', 'guest')->count() }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
+                                    <i class="bi bi-person-add text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                  <i class="bi bi-person-video3 text-lg opacity-10"></i>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Admins</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      {{ $allUsers->where('role', 'admin')->count() }}
-                    </h5>
-                  </div>
+            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Students</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        {{ $allUsers->where('role', 'student')->count() }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
+                                    <i class="bi bi-people text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
-                  <i class="bi bi-person-fill-lock text-lg opacity-10"></i>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Teachers</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        {{ $allUsers->where('role', 'teacher')->count() }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
+                                    <i class="bi bi-person-video3 text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="numbers">
+                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Admins</p>
+                                    <h5 class="font-weight-bolder mb-0">
+                                        {{ $allUsers->where('role', 'admin')->count() }}
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="col-4 text-end">
+                                <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
+                                    <i class="bi bi-person-fill-lock text-lg opacity-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <div class="col-12">
@@ -99,7 +118,7 @@
                 </div>
             </div>
             <div class="mb-3">
-              {{ $users->links() }}
+                {{ $users->links() }}
             </div>
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
@@ -140,7 +159,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                      <img src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : '../assets/img/marie.jpg' }}" class="avatar avatar-sm me-3">
+                                        <img src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : '../assets/img/marie.jpg' }}" class="avatar avatar-sm me-3">
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -180,12 +199,12 @@
                                 </td>
                                 <td class="d-flex align-middle justify-content-center gap-2">
                                     @if(auth()->user()->role === 'admin')
-                                        <button wire:click="edit({{ $user->id }})" class="btn btn-sm btn-secondary m-0">
-                                            Éditer
-                                        </button>
+                                        <a href="{{ route('edit-user', $user->id) }}" class="btn btn-sm btn-secondary m-0">
+                                            Edit
+                                        </a>
                                         
-                                        <button wire:click="confirmUserDeletion({{ $user->id }})" class="btn btn-sm btn-danger m-0 p-2">
-                                          <i class="bi bi-trash fs-6 text-white"></i>
+                                        <button wire:click="confirmUserDeletion({{ $user->id }})" class="btn btn-md btn-danger m-0 p-2">
+                                            <i class="bi bi-trash fs-7 text-white"></i>
                                         </button>
                                     @endif
                                 </td>
@@ -227,10 +246,6 @@
     window.addEventListener('hide-delete-modal', event => {
         let modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
         modal.hide();
-        
-        if (event.detail.message) {
-            alert(event.detail.message);
-        }
     });
 </script>
 

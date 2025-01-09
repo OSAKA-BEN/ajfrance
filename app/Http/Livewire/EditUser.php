@@ -1,43 +1,55 @@
 <?php
 
 namespace App\Http\Livewire;
-use App\Models\User;
+
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
-class UserProfile extends Component
+class EditUser extends Component
 {
     use WithFileUploads;
 
     public User $user;
-    public $showSuccesNotification = false;
-    public $showDemoNotification = false;
     public $profile_image;
-    
+    public $new_password;
+    public $showSuccessNotification = false;
+    public $showErrorNotification = false;
+    public $errorMessage = '';
+
     protected $rules = [
-        'user.name' => 'max:40|min:3',
-        'user.email' => 'email:rfc,dns',
-        'user.phone' => 'max:10',
-        'user.about' => 'max:200',
-        'user.country' => 'nullable|string',
+        'user.name' => 'required|min:3',
+        'user.email' => 'required|email',
+        'user.phone' => 'nullable|string',
+        'user.about' => 'nullable|string',
         'user.address' => 'nullable|string',
         'user.city' => 'nullable|string',
         'user.state' => 'nullable|string',
         'user.zipcode' => 'nullable|string',
+        'user.country' => 'nullable|string',
+        'user.role' => 'required|in:admin,teacher,student,guest',
+        'user.credits' => 'nullable|integer|min:0',
         'profile_image' => 'nullable|image|max:1024',
-        'user.credits' => 'nullable|integer'
+        'new_password' => 'nullable|min:6'
     ];
 
-    public function mount() { 
-        $this->user = auth()->user();
+    public function mount($userId)
+    {
+        $this->user = User::findOrFail($userId);
     }
 
-    public function save() {
+    public function save()
+    {
         $this->validate();
 
         try {
             if ($this->profile_image) {
                 $this->user->profile_image = $this->profile_image->store('profile-images', 'public');
+            }
+
+            if ($this->new_password) {
+                $this->user->password = Hash::make($this->new_password);
             }
 
             $this->user->save();
@@ -52,6 +64,6 @@ class UserProfile extends Component
 
     public function render()
     {
-        return view('livewire.user-profile');
+        return view('livewire.edit-user');
     }
-}
+} 

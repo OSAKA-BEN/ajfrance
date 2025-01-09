@@ -16,9 +16,10 @@ use App\Http\Livewire\CalendarManagement;
 use App\Http\Livewire\UserProfile;
 use App\Http\Livewire\UserManagement;
 use App\Http\Livewire\NewUser;
-use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\EditUser;
 
+use Illuminate\Http\Request;
 use App\Http\Livewire\Auth\Error404;
 use App\Http\Livewire\Auth\Error500;
 
@@ -60,8 +61,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/users-management', UserManagement::class)->name('users-management');
     Route::get('/calendar-management', CalendarManagement::class)->name('calendar-management');
     Route::get('/users-new', NewUser::class)->name('new-user');
-    // Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-    // Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::get('/edit-user/{userId}', EditUser::class)->name('edit-user');
 });
 
 Route::middleware(['auth', 'role:teacher,admin'])->group(function () {

@@ -8,12 +8,14 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="../assets/img/bruce-mars.jpg" alt="..." class="w-100 border-radius-lg shadow-sm">
-                        <a href="javascript:;"
-                            class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
-                            <i class="fa fa-pen top-0" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Edit Image"></i>
-                        </a>
+                    @if ($user->profile_image)
+                        <img src="{{ asset('storage/' . $user->profile_image) }}" class="w-100 border-radius-lg shadow-sm">
+                    @else
+                        <img src="{{ '../assets/img/marie.jpg' }}" class="w-100 border-radius-lg shadow-sm">
+                    @endif
+                    <input wire:model="profile_image" type="file"
+                        class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
+                    </input>
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -95,27 +97,52 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <div class="form-group">
-                                <label for="user.phone" class="form-control-label">{{ __('Phone') }}</label>
-                                <div class="@error('user.phone')border border-danger rounded-3 @enderror">
-                                    <input wire:model.live="user.phone" class="form-control" type="tel"
-                                        placeholder="40770888444" id="phone">
-                                </div>
-                                @error('user.phone') <div class="text-danger">{{ $message }}</div> @enderror
+                                <label class="form-label">Phone</label>
+                                <input wire:model="user.phone" type="text" class="form-control">
+                                @error('user.phone') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user.location" class="form-control-label">{{ __('Location') }}</label>
-                                <div class="@error('user.location') border border-danger rounded-3 @enderror">
-                                    <input wire:model.live="user.location" class="form-control" type="text"
-                                        placeholder="Location" id="name">
+                                <label for="user.country" class="form-control-label">{{ __('Country') }}</label>
+                                <div class="@error('user.country') border border-danger rounded-3 @enderror">
+                                    <input wire:model.live="user.country" class="form-control" type="text"
+                                        placeholder="Country" id="name">
                                 </div>
-                                @error('user.location') <div class="text-danger">{{ $message }}</div> @enderror
+                                @error('user.country') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                              <div class="col-12 col-md-6">
+                                  <!-- Adresse -->
+                                  <div class="form-group">
+                                      <label class="form-label">Adress</label>
+                                      <input wire:model="user.address" type="text" class="form-control">
+                                      @error('user.address') <span class="text-danger">{{ $message }}</span> @enderror
+                                  </div>
+                              </div>
+                              <div class="col-12 col-md-6">
+                                  <div class="row">
+                                      <div class="col-6">
+                                          <div class="form-group">
+                                              <label class="form-label">City</label>
+                                              <input wire:model="user.city" type="text" class="form-control">
+                                              @error('user.city') <span class="text-danger">{{ $message }}</span> @enderror
+                                          </div>
+                                      </div>
+                                      <div class="col-6">
+                                          <div class="form-group">
+                                              <label class="form-label">State</label>
+                                              <input wire:model="user.state" type="text" class="form-control">
+                                              @error('user.state') <span class="text-danger">{{ $message }}</span> @enderror
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                     <div class="form-group">
                         <label for="about">{{ 'About Me' }}</label>
                         <div class="@error('user.about')border border-danger rounded-3 @enderror">
