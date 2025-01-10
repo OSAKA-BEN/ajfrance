@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class Availability extends Model
 {
@@ -11,11 +11,27 @@ class Availability extends Model
         'user_id',
         'day_of_week',
         'start_time',
-        'end_time',
+        'end_time'
     ];
 
-    public function user(): BelongsTo
+    protected $casts = [
+        'start_time' => 'string',
+        'end_time' => 'string'
+    ];
+
+    public function teacher()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id')
+                    ->where('role', 'teacher');
+    }
+
+    public function getFormattedStartTimeAttribute()
+    {
+        return $this->start_time ? Carbon::parse($this->start_time)->format('H:i') : '';
+    }
+
+    public function getFormattedEndTimeAttribute()
+    {
+        return $this->end_time ? Carbon::parse($this->end_time)->format('H:i') : '';
     }
 } 

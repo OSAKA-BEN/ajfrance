@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Database\Seeders\LessonSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -69,9 +68,5 @@ class DatabaseSeeder extends Seeder
                 'country' => 'France'
             ]);
         }
-
-        $this->call([
-            LessonSeeder::class,
-        ]);
     }
 }

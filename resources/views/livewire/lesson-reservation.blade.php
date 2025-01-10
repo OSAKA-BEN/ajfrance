@@ -1,4 +1,4 @@
-<main class="container-fluid">
+<main class="container-fluid py-4">
     <div class="row mt-4">
         <div class="col-12">
             <h5>Teachers</h5>
@@ -18,7 +18,7 @@
 
                     @if (isset($showErrorNotification[$teacher->id]) && $showErrorNotification[$teacher->id])
                         <div class="mt-3 alert alert-danger alert-dismissible fade show" role="alert">
-                            <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
+                            <span class="alert-icon text-white"><i class="bi bi-exclamation-triangle-fill"></i></span>
                             <span class="alert-text text-white">{{ $errorMessage[$teacher->id] }}</span>
                             <button wire:click="$set('showErrorNotification.{{$teacher->id}}', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                             </button>
@@ -37,47 +37,45 @@
                               <p class="mb-4 text-sm">
                                 {{ $teacher->about }}
                               </p>
-                            <div class="row mt-4">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="me-3">
-                                      <label for="selectedDates.{{$teacher->id}}">Date</label>
-                                        <input type="date" 
-                                               class="form-control @error('selectedDates.' . $teacher->id) is-invalid @enderror" 
-                                               wire:model="selectedDates.{{$teacher->id}}" />
-                                        @error('selectedDates.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
-                                    </div>
-                                    <div class="me-3">
-                                        <label for="selectedTimes.{{$teacher->id}}">Time</label>
-                                        <select class="form-control @error('selectedTimes.' . $teacher->id) is-invalid @enderror" 
-                                                wire:model="selectedTimes.{{$teacher->id}}">
-                                            <option value="">Select a time</option>
-                                            @for ($i = 9; $i <= 17; $i++)
-                                                <option value="{{ $i }}">{{ $i }}:00</option>
-                                            @endfor
-                                        </select>
-                                        @error('selectedTimes.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
-                                    </div>
-                                    <div class="me-3">
-                                        <label for="selectedTypes.{{$teacher->id}}">Type</label>
-                                        <div>
-                                            <div>
-                                                <input type="radio" id="type_skype_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="skype" wire:model="selectedTypes.{{$teacher->id}}">
-                                                <label for="type_skype_{{$teacher->id}}">Skype</label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" id="type_private_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="private" wire:model="selectedTypes.{{$teacher->id}}">
-                                                <label for="type_private_{{$teacher->id}}">Private</label>
-                                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="selectedDates.{{$teacher->id}}">Date</label>
+                                    <input type="date" 
+                                           class="form-control @error('selectedDates.' . $teacher->id) is-invalid @enderror" 
+                                           wire:model="selectedDates.{{$teacher->id}}" />
+                                    @error('selectedDates.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="col">
+                                    <label for="selectedTimes.{{$teacher->id}}">Time</label>
+                                    <select class="form-control @error('selectedTimes.' . $teacher->id) is-invalid @enderror" 
+                                            wire:model="selectedTimes.{{$teacher->id}}">
+                                        <option value="">Select a time</option>
+                                        @for ($i = 9; $i <= 17; $i++)
+                                            <option value="{{ $i }}">{{ $i }}:00</option>
+                                        @endfor
+                                    </select>
+                                    @error('selectedTimes.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="col">
+                                    <label for="selectedTypes.{{$teacher->id}}">Type</label>
+                                    <div class="d-flex justify-content-start align-items-end gap-4">
+                                      <div class="">
+                                        <input type="radio" id="type_skype_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="skype" wire:model="selectedTypes.{{$teacher->id}}">
+                                        <label class="form-check-label mb-0" for="type_skype_{{$teacher->id}}">Skype</label>
                                         </div>
-                                        @error('selectedTypes.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
+                                        <div class="">
+                                          <input type="radio" id="type_private_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="private" wire:model="selectedTypes.{{$teacher->id}}">
+                                          <label class="form-check-label mb-0" for="type_private_{{$teacher->id}}">Private</label>
+                                        </div>
                                     </div>
-                                    <button type="button" 
-                                            class="btn btn-info btn-sm mb-0"
-                                            wire:click="makeReservation({{ $teacher->id }})">
-                                        Make a reservation
-                                    </button>
+                                    @error('selectedTypes.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
+                            <button type="button" 
+                                    class="btn bg-gradient-dark btn-sm mb-0 w-100 mt-3"
+                                    wire:click="makeReservation({{ $teacher->id }})">
+                                {{ __('Make a reservation') }}
+                            </button>
                         </div>
                     </div>
                   </div>

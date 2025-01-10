@@ -1,6 +1,6 @@
 <main class="main-content mt-1 border-radius-lg">
-    @if($lessons->count() > 0)
     <div class="container-fluid py-4">
+    @if($lessons->count() > 0)
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
@@ -115,8 +115,8 @@
                 </div>
             </div>
         </div>
-    </div>
     @else
     <p>No lessons found !</p>
     @endif
+    </div>
 </main>

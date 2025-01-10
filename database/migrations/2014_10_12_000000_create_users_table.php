@@ -14,16 +14,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone')->nullable();
-            $table->text('about')->nullable();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zipcode')->nullable();
-            $table->string('country')->nullable();
-            $table->string('profile_image')->nullable();
-            $table->enum('role', ['admin', 'teacher', 'student', 'guest'])->default('guest');
-            $table->integer('credits')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -33,4 +23,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
-};
+}; 

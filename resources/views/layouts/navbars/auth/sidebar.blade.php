@@ -8,7 +8,7 @@
         </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse w-auto h-full" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse w-auto h-auto pb-4" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             @if(auth()->user()->role === 'admin')
                 <li class="nav-item">
@@ -21,9 +21,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'calendar-management' ? 'active' : '' }}" href="{{ route('calendar-management') }}">
+                    <a class="nav-link {{ Route::currentRouteName() == 'school-schedule-management' ? 'active' : '' }}" href="{{ route('school-schedule-management') }}">
                         <i class="bi bi-calendar-plus"></i>
-                        <span class="nav-link-text ms-1">Calendar Management</span>
+                        <span class="nav-link-text ms-1">School Schedule</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::currentRouteName() == 'teacher-availability' ? 'active' : '' }}" href="{{ route('teacher-availability') }}">
+                        <i class="bi bi-person-video3"></i>
+                        <span class="nav-link-text ms-1">Teacher Availability</span>
                     </a>
                 </li>
             @endif

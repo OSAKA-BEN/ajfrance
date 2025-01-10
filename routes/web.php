@@ -12,7 +12,7 @@ use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tables;
 use App\Http\Livewire\Rtl;
-use App\Http\Livewire\CalendarManagement;
+use App\Http\Livewire\SchoolScheduleManagement;
 use App\Http\Livewire\UserProfile;
 use App\Http\Livewire\UserManagement;
 use App\Http\Livewire\NewUser;
@@ -25,6 +25,7 @@ use Illuminate\Http\Request;
 use App\Http\Livewire\Auth\Error404;
 use App\Http\Livewire\Auth\Error500;
 use App\Http\Livewire\LessonReservation;
+use App\Http\Livewire\TeacherAvailabilityManagement;
 
 
 /*
@@ -64,9 +65,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/users-management', UserManagement::class)->name('users-management');
-    Route::get('/calendar-management', CalendarManagement::class)->name('calendar-management');
+    Route::get('/school-schedule-management', SchoolScheduleManagement::class)->name('school-schedule-management');
     Route::get('/users-new', NewUser::class)->name('new-user');
     Route::get('/edit-user/{userId}', EditUser::class)->name('edit-user');
+    Route::get('/teacher-availability', TeacherAvailabilityManagement::class)->name('teacher-availability');
 });
 
 Route::middleware(['auth', 'role:teacher,admin'])->group(function () {

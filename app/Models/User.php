@@ -99,7 +99,7 @@ class User extends Authenticatable
 
     public function availabilities()
     {
-        return $this->hasMany(Availability::class);
+        return $this->hasMany(Availability::class, 'user_id');
     }
 
     public function reservations()
@@ -110,5 +110,26 @@ class User extends Authenticatable
     public function studentReservations()
     {
         return $this->hasMany(Reservation::class, 'student_id');
+    }
+
+    public function absences()
+    {
+        return $this->hasMany(TeacherAbsence::class, 'teacher_id');
+    }
+
+    public function teacherAvailabilities()
+    {
+        return $this->hasMany(Availability::class, 'user_id')
+                    ->when(!$this->isTeacher(), function($query) {
+                        return $query->whereNull('id');
+                    });
+    }
+
+    public function teacherAbsences()
+    {
+        return $this->hasMany(TeacherAbsence::class, 'teacher_id')
+                    ->when(!$this->isTeacher(), function($query) {
+                        return $query->whereNull('id');
+                    });
     }
 }
