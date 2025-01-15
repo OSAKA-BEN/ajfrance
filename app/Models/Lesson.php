@@ -17,7 +17,8 @@ class Lesson extends Model
     ];
 
     protected $casts = [
-        'date' => 'datetime'
+        'start_datetime' => 'datetime',
+        'end_datetime' => 'datetime'
     ];
 
     public function teacher(): BelongsTo
@@ -28,5 +29,10 @@ class Lesson extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(User::class, 'student_id');
+    }
+
+    public function getFormattedStartDatetimeAttribute()
+    {
+        return \Carbon\Carbon::parse($this->start_datetime)->format('d/m/Y à H:i');
     }
 } 

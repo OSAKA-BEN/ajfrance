@@ -30,6 +30,12 @@ class Kernel extends ConsoleKernel
         if (env('IS_DEMO')) {
             $schedule->command('migrate:fresh --seed')->cron($scheduledInterval);
         }
+
+        // Exécute la commande toutes les heures
+        $schedule->command('lessons:update-status')->hourly();
+        
+        // Ou toutes les 5 minutes si vous voulez une mise à jour plus fréquente
+        // $schedule->command('lessons:update-status')->everyFiveMinutes();
     }
 
     /**

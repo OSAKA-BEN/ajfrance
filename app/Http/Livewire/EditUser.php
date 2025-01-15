@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EditUser extends Component
 {
@@ -45,6 +46,9 @@ class EditUser extends Component
 
         try {
             if ($this->profile_image) {
+                if ($this->user->profile_image) {
+                    Storage::disk('public')->delete($this->user->profile_image);
+                }
                 $this->user->profile_image = $this->profile_image->store('profile-images', 'public');
             }
 

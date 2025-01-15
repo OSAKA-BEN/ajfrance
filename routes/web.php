@@ -56,7 +56,6 @@ Route::get('/500', Error500::class)->name('500');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/calendar', Calendar::class)->name('calendar');
-    Route::get('/billing', Billing::class)->name('billing');
     Route::get('/tables', Tables::class)->name('tables');
     Route::get('/user-profile', UserProfile::class)->name('user-profile');
     Route::get('/lessons', LessonsList::class)->name('lessons');

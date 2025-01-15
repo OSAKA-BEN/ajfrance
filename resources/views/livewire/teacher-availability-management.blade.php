@@ -28,7 +28,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Day</label>
-                                            <select class="form-control" wire:model="newAvailability.{{ $teacher->id }}.day_of_week">
+                                            <select class="form-control @error('newAvailability.'.$teacher->id.'.day_of_week') is-invalid @enderror" wire:model="newAvailability.{{ $teacher->id }}.day_of_week">
                                                 <option value="">Select a day</option>
                                                 <option value="1">Monday</option>
                                                 <option value="2">Tuesday</option>
@@ -38,20 +38,29 @@
                                                 <option value="6">Saturday</option>
                                                 <option value="7">Sunday</option>
                                             </select>
+                                            @error('newAvailability.'.$teacher->id.'.day_of_week')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Start Time</label>
-                                            <input type="time" class="form-control" 
+                                            <input type="time" class="form-control @error('newAvailability.'.$teacher->id.'.opening_time') is-invalid @enderror" 
                                                    wire:model="newAvailability.{{ $teacher->id }}.opening_time">
+                                            @error('newAvailability.'.$teacher->id.'.opening_time')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>End Time</label>
-                                            <input type="time" class="form-control" 
+                                            <input type="time" class="form-control @error('newAvailability.'.$teacher->id.'.closing_time') is-invalid @enderror" 
                                                    wire:model="newAvailability.{{ $teacher->id }}.closing_time">
+                                            @error('newAvailability.'.$teacher->id.'.closing_time')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -105,19 +114,25 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Type</label>
-                                            <select class="form-control" wire:model="newAbsence.{{ $teacher->id }}.type">
+                                            <select class="form-control @error('newAbsence.'.$teacher->id.'.type') is-invalid @enderror" wire:model="newAbsence.{{ $teacher->id }}.type">
                                                 <option value="">Select type</option>
                                                 <option value="vacation">Vacation</option>
                                                 <option value="sick_leave">Sick Leave</option>
                                                 <option value="other">Other</option>
                                             </select>
+                                            @error('newAbsence.'.$teacher->id.'.type')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Reason</label>
-                                            <input type="text" class="form-control" 
+                                            <input type="text" class="form-control @error('newAbsence.'.$teacher->id.'.reason') is-invalid @enderror" 
                                                    wire:model="newAbsence.{{ $teacher->id }}.reason">
+                                            @error('newAbsence.'.$teacher->id.'.reason')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -125,15 +140,21 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Start Date</label>
-                                            <input type="date" class="form-control" 
+                                            <input type="date" class="form-control @error('newAbsence.'.$teacher->id.'.start_date') is-invalid @enderror" 
                                                    wire:model="newAbsence.{{ $teacher->id }}.start_date">
+                                            @error('newAbsence.'.$teacher->id.'.start_date')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>End Date</label>
-                                            <input type="date" class="form-control" 
+                                            <input type="date" class="form-control @error('newAbsence.'.$teacher->id.'.end_date') is-invalid @enderror" 
                                                    wire:model="newAbsence.{{ $teacher->id }}.end_date">
+                                            @error('newAbsence.'.$teacher->id.'.end_date')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-2">

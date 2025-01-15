@@ -29,6 +29,17 @@ class SchoolScheduleManagement extends Component
         'description' => ''
     ];
 
+    // Propriétés pour les notifications
+    public $showScheduleSuccessNotification = false;
+    public $showScheduleErrorNotification = false;
+    public $scheduleErrorMessage = '';
+    public $scheduleSuccessMessage = '';
+
+    public $showClosureSuccessNotification = false;
+    public $showClosureErrorNotification = false;
+    public $closureErrorMessage = '';
+    public $closureSuccessMessage = '';
+
     protected $rules = [
         'newSchedule.day_of_week' => 'required|integer|between:1,7',
         'newSchedule.opening_time' => 'required|date_format:H:i',
@@ -65,6 +76,7 @@ class SchoolScheduleManagement extends Component
             'newSchedule.day_of_week' => 'required|integer|between:1,7',
             'newSchedule.opening_time' => 'required|date_format:H:i',
             'newSchedule.closing_time' => 'required|date_format:H:i|after:newSchedule.opening_time',
+            'newSchedule.is_open' => 'boolean',
         ]);
 
         // Convertir les heures en format time sans date
@@ -84,7 +96,11 @@ class SchoolScheduleManagement extends Component
 
         $this->reset('newSchedule');
         $this->loadSchedules();
-        session()->flash('message', 'Schedule updated successfully.');
+
+        // Notifications pour les horaires
+        $this->showScheduleSuccessNotification = true;
+        $this->scheduleSuccessMessage = 'Schedule updated successfully.';
+        $this->showScheduleErrorNotification = false;
     }
 
     public function saveClosure()
@@ -94,20 +110,29 @@ class SchoolScheduleManagement extends Component
             'newClosure.start_date' => 'required|date|after_or_equal:today',
             'newClosure.end_date' => 'required|date|after_or_equal:newClosure.start_date',
             'newClosure.type' => 'required|in:holiday,vacation,special_event',
+            'newClosure.description' => 'nullable|string'
         ]);
 
         SchoolClosure::create($this->newClosure);
 
         $this->loadClosures();
         $this->reset('newClosure');
-        session()->flash('message', 'School closure added successfully.');
+
+        // Notifications pour les fermetures
+        $this->showClosureSuccessNotification = true;
+        $this->closureSuccessMessage = 'School closure added successfully.';
+        $this->showClosureErrorNotification = false;
     }
 
     public function deleteClosure($id)
     {
         SchoolClosure::find($id)->delete();
         $this->loadClosures();
-        session()->flash('message', 'School closure deleted successfully.');
+
+        // Notifications pour les fermetures
+        $this->showClosureSuccessNotification = true;
+        $this->closureSuccessMessage = 'School closure deleted successfully.';
+        $this->showClosureErrorNotification = false;
     }
 
     public function toggleDay($dayId)

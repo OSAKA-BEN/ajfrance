@@ -7,7 +7,7 @@
                     <div class="col-lg-5 text-center mx-auto">
                         <h1 class="text-white mb-2 mt-5">{{ __('Bienvenue !') }}</h1>
                         <p class="text-lead text-white">
-                        {{ __('Créer un compte pour accéder à l\'application Afjfrance.') }}
+                        {{ __('Create an account to access the AJFrance application.') }}
                         </p>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                 <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
                     <div class="card z-index-0">
                         <div class="card-header text-center pt-4">
-                            <h5>{{ __('Créer un compte') }}</h5>
+                            <h5>{{ __('Sign up') }}</h5>
                         </div>
                         <!-- SOCIAL LINK -->
                         <!-- <div class="row px-xl-5 px-sm-4 px-3">
@@ -115,16 +115,16 @@
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                                     checked>
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        {{ __('J\'accepte les') }} <a href="javascript:;"
-                                            class="text-dark font-weight-bolder">{{ __('Conditions d\'utilisation') }}</a>
+                                        {{ __('I accept the') }} <a href="javascript:;"
+                                            class="text-dark font-weight-bolder">{{ __('Terms of use') }}</a>
                                     </label>
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">{{ __('Créer un compte') }}</button>
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">{{ __('Sign up') }}</button>
                                 </div>
-                                <p class="text-sm mt-3 mb-0">{{ __('Vous avez déjà un compte? ') }}<a
+                                <p class="text-sm mt-3 mb-0">{{ __('You already have an account? ') }}<a
                                     href="{{ route('login') }}"
-                                    class="text-dark font-weight-bolder">{{ __('Se connecter') }}</a>
+                                    class="text-dark font-weight-bolder">{{ __('Login') }}</a>
                                 </p>
                             </form>
 

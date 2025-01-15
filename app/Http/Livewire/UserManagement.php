@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserManagement extends Component
 {
@@ -85,6 +86,11 @@ class UserManagement extends Component
         try {
             $user = User::find($this->userIdToDelete);
             if ($user) {
+                // Supprimez l'ancienne image de profil si elle existe
+                if ($user->profile_image) {
+                    Storage::disk('public')->delete($user->profile_image);
+                }
+                // Supprimez l'utilisateur
                 $user->delete();
                 $this->showSuccessNotification = true;
                 $this->successMessage = 'User deleted successfully';

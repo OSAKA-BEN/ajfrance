@@ -36,7 +36,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ $lesson->teacher->profile_image ? asset('storage/'.$lesson->teacher->profile_image) : asset('assets/img/team-2.jpg') }}" class="avatar avatar-sm me-3">
+                                                        <img src="{{ $lesson->teacher->profile_image ? asset('storage/'.$lesson->teacher->profile_image) : '../assets/img/marie.jpg' }}" class="avatar avatar-sm me-3">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $lesson->teacher->name }}</h6>

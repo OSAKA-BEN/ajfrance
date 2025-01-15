@@ -60,7 +60,7 @@ if (document.querySelector('[data-toggle="widget-calendar"]')) {
   document.getElementsByClassName('widget-calendar-day')[0].innerHTML = mDay;
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
-    contentHeight: 'auto',
+    contentHeight: '800px',
     initialView: 'dayGridMonth',
     selectable: true,
     initialDate: '2020-12-01',

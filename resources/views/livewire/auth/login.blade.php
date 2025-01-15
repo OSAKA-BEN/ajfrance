@@ -6,7 +6,7 @@
                 <div class="col-lg-5 text-center mx-auto">
                     <h1 class="text-white mb-2 mt-5">{{ __('Content de te revoir !') }}</h1>
                     <p class="text-lead text-white">
-                        {{ __('Connectez vous pour accéder à l\'application Afjfrance.') }}
+                        {{ __('Login to access the AJFrance application.') }}
                     </p>
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
                 <div class="card z-index-0">
                     <div class="card-header text-center pt-4">
-                        <h5>{{ __('Se connecter') }}</h5>
+                        <h5>{{ __('Login') }}</h5>
                     </div>
                     <div class="card-body">
                         <form wire:submit="login" action="#" method="POST" role="form text-left">
@@ -35,30 +35,23 @@
                             </div>
                             <div class="form-check form-switch">
                                 <input wire:model="remember_me" class="form-check-input" type="checkbox" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe">{{ __('Se souvenir de moi') }}</label>
+                                <label class="form-check-label" for="rememberMe">{{ __('Remember me') }}</label>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">{{ __('Se connecter') }}</button>
+                                <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">{{ __('Login') }}</button>
                             </div>
-                            <div class="text-left">
+                            <!-- <div class="text-left">
                                 <p class="text-sm mt-3 mb-0">{{ __('Mot de passe oublié? ') }}
                                     <a href="{{ route('forgot-password') }}" class="text-dark font-weight-bolder">{{ __('Réinitialiser') }}</a>
                                 </p>
-                            </div>
+                            </div> -->
                             <div class="text-left">
-                                <p class="text-sm mt-3 mb-0">{{ __('Vous n\'avez pas de compte? ') }}<a href="{{ route('sign-up') }}" class="text-dark font-weight-bolder">{{ __('S\'inscrire') }}</a></p>
+                                <p class="text-sm mt-3 mb-0">{{ __('Don\'t have an account? ') }}<a href="{{ route('sign-up') }}" class="text-dark font-weight-bolder">{{ __('Sign up') }}</a></p>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="text-center mt-3">
-            Pour vous connecter, veuillez utiliser les identifiants suivants :
-            <br>
-            Email : admin@softui.com
-            <br>
-            Mot de passe : secret
         </div>
     </div>
 </section>

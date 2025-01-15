@@ -13,9 +13,6 @@
                     @else
                         <img src="{{ '../assets/img/marie.jpg' }}" class="w-100 border-radius-lg shadow-sm">
                     @endif
-                    <input wire:model="profile_image" type="file"
-                        class="btn btn-sm btn-icon-only bg-gradient-light position-absolute bottom-0 end-0 mb-n2 me-n2">
-                    </input>
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -76,6 +73,11 @@
                 <form wire:submit="save" action="#" method="POST" role="form text-left">
                     <div class="row">
                         <div class="col-md-6">
+                            <label for="user-name" class="form-control-label">{{ __('Profile Image') }}</label>
+                            <input wire:model="profile_image" type="file"
+                            class="form-control" />
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
@@ -85,6 +87,8 @@
                                 @error('user.name') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="user-email" class="form-control-label">{{ __('Email') }}</label>

@@ -78,7 +78,7 @@
             <div class="card-body text-left p-3 w-100">
                 <div class="docs-info">
                     <h6 class="text-white up mb-0">AJ France</h6>
-                    <p class="text-xs font-weight-bold">Look at the lasts news.</p>
+                    <p class="text-xs font-weight-bold">Return to the website</p>
                     <a href="https://aj-france.com/" target="_blank"
                         class="btn btn-white btn-sm w-100 mb-0">Back to website</a>
                 </div>

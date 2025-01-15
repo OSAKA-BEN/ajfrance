@@ -49,35 +49,37 @@
                                         <div class="row mt-3">
                                             <div class="col-12 col-sm-6">
                                                 <label>Name *</label>
-                                                <input wire:model="name" class="multisteps-form__input form-control" type="text"
+                                                <input wire:model="name" class="multisteps-form__input form-control @error('name') is-invalid @enderror" type="text"
                                                     placeholder="eg. Michael" required />
-                                                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+                                                @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                             <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                                 <label>Phone</label>
-                                                <input wire:model="phone" class="multisteps-form__input form-control" type="tel"
+                                                <input wire:model="phone" class="multisteps-form__input form-control @error('phone') is-invalid @enderror" type="tel"
                                                     placeholder="eg. +33 6 12 34 56 78" />
+                                                @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <label>Email Address *</label>
-                                                <input wire:model="email" class="multisteps-form__input form-control" type="email"
+                                                <input wire:model="email" class="multisteps-form__input form-control @error('email') is-invalid @enderror" type="email"
                                                     placeholder="eg. soft@dashboard.com" required />
-                                                @error('email') <span class="text-danger">{{ $message }}</span> @enderror
+                                                @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-12 col-sm-6">
                                                 <label>Password *</label>
-                                                <input wire:model="password" class="multisteps-form__input form-control" type="password"
+                                                <input wire:model="password" class="multisteps-form__input form-control @error('password') is-invalid @enderror" type="password"
                                                     placeholder="******" required />
-                                                @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                                                @error('password') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                             <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                                 <label>Repeat Password *</label>
-                                                <input wire:model="password_confirmation" class="multisteps-form__input form-control" type="password"
+                                                <input wire:model="password_confirmation" class="multisteps-form__input form-control @error('password_confirmation') is-invalid @enderror" type="password"
                                                     placeholder="******" required />
+                                                @error('password_confirmation') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
                                         <div class="button-row d-flex mt-4">
@@ -93,32 +95,37 @@
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <label>Country</label>
-                                                <input wire:model="country" class="multisteps-form__input form-control" type="text"
+                                                <input wire:model="country" class="multisteps-form__input form-control @error('country') is-invalid @enderror" type="text"
                                                     placeholder="eg. France" />
+                                                @error('country') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col">
                                                 <label>Address</label>
-                                                <input wire:model="address" class="multisteps-form__input form-control" type="text"
+                                                <input wire:model="address" class="multisteps-form__input form-control @error('address') is-invalid @enderror" type="text"
                                                     placeholder="eg. Street 111" />
+                                                @error('address') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-12 col-sm-6">
                                                 <label>City</label>
-                                                <input wire:model="city" class="multisteps-form__input form-control" type="text"
+                                                <input wire:model="city" class="multisteps-form__input form-control @error('city') is-invalid @enderror" type="text"
                                                     placeholder="eg. Paris" />
+                                                @error('city') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                             <div class="col-6 col-sm-3 mt-3 mt-sm-0">
                                                 <label>State</label>
-                                                <input wire:model="state" class="multisteps-form__input form-control" type="text"
+                                                <input wire:model="state" class="multisteps-form__input form-control @error('state') is-invalid @enderror" type="text"
                                                     placeholder="eg. Île-de-France" />
+                                                @error('state') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                             <div class="col-6 col-sm-3 mt-3 mt-sm-0">
                                                 <label>Zip</label>
-                                                <input wire:model="zipcode" class="multisteps-form__input form-control" type="text"
+                                                <input wire:model="zipcode" class="multisteps-form__input form-control @error('zipcode') is-invalid @enderror" type="text"
                                                     placeholder="eg. 75001" />
+                                                @error('zipcode') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
                                         <div class="button-row d-flex mt-4">
@@ -135,8 +142,8 @@
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <label>Profile Image</label>
-                                                <input wire:model="profile_image" type="file" class="form-control" accept="image/*">
-                                                @error('profile_image') <span class="text-danger">{{ $message }}</span> @enderror
+                                                <input wire:model="profile_image" type="file" class="form-control @error('profile_image') is-invalid @enderror" accept="image/*">
+                                                @error('profile_image') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                             </div>
                                         </div>
                                         <div class="button-row d-flex mt-4">

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class UserProfile extends Component
 {
@@ -34,14 +35,20 @@ class UserProfile extends Component
 
     public function save() {
         $this->validate();
-
+    
         try {
+            // Vérifiez si une nouvelle image de profil a été téléchargée
             if ($this->profile_image) {
+                // Supprimez l'ancienne image de profil si elle existe
+                if ($this->user->profile_image) {
+                    Storage::disk('public')->delete($this->user->profile_image);
+                }
+                // Stockez la nouvelle image de profil
                 $this->user->profile_image = $this->profile_image->store('profile-images', 'public');
             }
-
+    
             $this->user->save();
-
+    
             $this->showSuccessNotification = true;
             $this->showErrorNotification = false;
         } catch (\Exception $e) {

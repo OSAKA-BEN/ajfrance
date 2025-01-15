@@ -1,8 +1,18 @@
 <div class="container-fluid py-4">
-    @if (session()->has('message'))
+    
+    {{-- Notifications pour les horaires d'ouverture --}}
+    @if ($showScheduleSuccessNotification)
         <div class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
             <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
-            <span class="alert-text text-white">{{ is_array(session('message')) ? implode(', ', session('message')) : session('message') }}</span>
+            <span class="alert-text text-white">{{ $scheduleSuccessMessage }}</span>
+            <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if ($showScheduleErrorNotification)
+        <div class="mt-3 alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="alert-icon text-white"><i class="bi bi-exclamation-triangle-fill"></i></span>
+            <span class="alert-text text-white">{{ $scheduleErrorMessage }}</span>
             <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -92,15 +102,31 @@
                 </div>
             </div>
         </div>
-
     </div>
 
+    {{-- Notifications pour les fermetures --}}
+    @if ($showClosureSuccessNotification)
+        <div class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+            <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
+            <span class="alert-text text-white">{{ $closureSuccessMessage }}</span>
+            <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if ($showClosureErrorNotification)
+        <div class="mt-3 alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="alert-icon text-white"><i class="bi bi-exclamation-triangle-fill"></i></span>
+            <span class="alert-text text-white">{{ $closureErrorMessage }}</span>
+            <button type="button" class="btn-close text-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="row">
-              <!-- Fermetures exceptionnelles -->
-              <div class="col-12">
+        <!-- Fermetures exceptionnelles -->
+        <div class="col-12">
             <div class="card">
                 <div class="card-header pb-0">
-                    <h5>Closing School Hours</h5>
+                    <h5>School Closure</h5>
                 </div>
                 <div class="card-body">
                     <form wire:submit.prevent="saveClosure">
