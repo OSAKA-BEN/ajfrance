@@ -20,7 +20,7 @@ class Login extends Component
         if(auth()->user()){
             redirect('/dashboard');
         }
-        $this->fill(['email' => 'admin@softui.com', 'password' => 'secret']);
+        $this->fill(['email' => 'admin@admin.com', 'password' => 'secret']);
     }
 
     public function login() {
@@ -31,7 +31,7 @@ class Login extends Component
             return redirect()->intended('/dashboard');        
         }
         else{
-            return $this->addError('email', trans('auth.failed')); 
+            return $this->addError('email', trans('Incorrect email or password')); 
         }
     }
 

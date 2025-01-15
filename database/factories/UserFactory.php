@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -24,10 +25,17 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'email' => $this->faker->unique()->userName() . '@test.com',
+            'email_verified_at' => null,
+            'password' => Hash::make('password123'),
+            'remember_token' => null,
+            'about' => $this->faker->sentence,
+            'address' => $this->faker->address,
+            'city' => $this->faker->city,
+            'state' => $this->faker->randomElement(['Hokkaido', 'Aomori', 'Iwate', 'Miyagi', 'Akita', 'Yamagata', 'Fukushima', 'Ibaraki', 'Tochigi', 'Gunma', 'Saitama', 'Chiba', 'Tokyo', 'Kanagawa', 'Niigata', 'Toyama', 'Ishikawa', 'Fukui', 'Yamanashi', 'Nagano', 'Gifu', 'Shizuoka', 'Aichi', 'Mie', 'Shiga', 'Kyoto', 'Osaka', 'Hyogo', 'Nara', 'Wakayama', 'Tottori', 'Shimane', 'Okayama', 'Hiroshima', 'Yamaguchi', 'Tokushima', 'Kagawa', 'Ehime', 'Kochi', 'Fukuoka', 'Saga', 'Nagasaki', 'Kumamoto', 'Oita', 'Miyazaki', 'Kagoshima', 'Okinawa']),
+            'zipcode' => $this->faker->postcode,
+            'country' => 'Japan',
+            'phone' => $this->faker->phoneNumber,
         ];
     }
 
@@ -41,6 +49,50 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'email_verified_at' => null,
+            ];
+        });
+    }
+
+    public function admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'admin',
+                'credits' => 0,
+                'profile_image' => 'profile-images/marie.jpg',
+            ];
+        });
+    }
+
+    public function teacher()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'teacher',
+                'credits' => 0,
+                'profile_image' => 'profile-images/' . ['bruce-mars.jpg', 'ivana-square.jpg', 'kal-visuals-square.jpg'][array_rand(['bruce-mars.jpg', 'ivana-square.jpg', 'kal-visuals-square.jpg'])],
+            ];
+        });
+    }
+
+    public function student()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'student',
+                'credits' => 2,
+                'profile_image' => 'profile-images/team-' . rand(1, 4) . '.jpg',
+            ];
+        });
+    }
+
+    public function guest()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'guest',
+                'credits' => 2,
+                'profile_image' => 'profile-images/team-' . rand(1, 4) . '.jpg',
             ];
         });
     }
