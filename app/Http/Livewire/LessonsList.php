@@ -18,17 +18,17 @@ class LessonsList extends Component
         if ($user->isAdmin()) {
             $lessons = Lesson::with(['teacher', 'student'])
                 ->orderBy('start_datetime', 'desc')
-                ->simplePaginate(10);
+                ->paginate(10);
         } elseif ($user->isTeacher()) {
             $lessons = Lesson::where('teacher_id', $user->id)
                 ->with('student')
                 ->orderBy('start_datetime', 'desc')
-                ->simplePaginate(10);
+                ->paginate(10);
         } else {
             $lessons = Lesson::where('student_id', $user->id)
                 ->with('teacher')
                 ->orderBy('start_datetime', 'desc')
-                ->simplePaginate(10);
+                ->paginate(10);
         }
 
         // Convertir les dates en format souhaité

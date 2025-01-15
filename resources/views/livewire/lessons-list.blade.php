@@ -7,8 +7,8 @@
                     <h5>{{ __('List of Lessons') }}</h5>
                     <p class="text-sm">List of your lessons</p>
                 </div>
-                <div class="px-3 pt-4">
-                    {{ $lessons->links() }}
+                <div class="mb-3 d-flex justify-content-start">
+                    {{ $lessons->links('vendor.pagination.bootstrap-5') }}
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">

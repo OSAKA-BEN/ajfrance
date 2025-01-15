@@ -117,8 +117,8 @@
                     <a href="{{ route('new-user') }}" class="btn bg-gradient-info text-white btn-sm mb-0" type="button">+&nbsp; New User</a>
                 </div>
             </div>
-            <div class="mb-3">
-                {{ $users->links() }}
+            <div class="mb-3 d-flex justify-content-start">
+                {{ $users->links('vendor.pagination.bootstrap-5') }}
             </div>
             <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">

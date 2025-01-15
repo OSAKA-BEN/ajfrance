@@ -24,7 +24,7 @@ class UserManagement extends Component
     public function render()
     {
         $allUsers = User::all();
-        $paginatedUsers = User::simplePaginate(10);
+        $paginatedUsers = User::paginate(10);
 
         return view('livewire.users-management', [
             'users' => $paginatedUsers,
