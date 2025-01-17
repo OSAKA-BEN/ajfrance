@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Lesson;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,7 @@ class LessonsList extends Component
 
     public function render()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $lessons = [];
 
         if ($user->isAdmin()) {
@@ -46,7 +47,7 @@ class LessonsList extends Component
     public function cancelLesson($lessonId)
     {
         $lesson = Lesson::findOrFail($lessonId);
-        $user = auth()->user();
+        $user = Auth::user();
 
         // Vérifier si l'utilisateur a le droit d'annuler
         if ($user->isAdmin() || 

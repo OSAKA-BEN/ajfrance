@@ -13,14 +13,14 @@
                     {{ str_replace('-', ' ', Route::currentRouteName()) }}</h6>
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 d-flex justify-content-end align-items-center gap-4" id="navbar">
-                <span class="text-sm text-capitalize">Bienvenue {{ Auth::user()->name }}</span>
-                <span class="text-sm"> Role: {{ Auth::user()->role }}</span>
+                <span class="text-sm text-capitalize d-sm-flex d-none">Bienvenue {{ Auth::user()->name }}</span>
+                <span class="text-sm d-sm-flex d-none"> Role: {{ Auth::user()->role }}</span>
                 <ul class="navbar-nav justify-content-end gap-2">
                     <li class="nav-item d-flex align-items-center border px-2 bg-white rounded-3">
                         <a class="nav-link {{ Route::currentRouteName() == 'user-profile' ? 'active' : '' }}"
                             href="{{ route('user-profile') }}">
                             <i class="bi bi-person-circle" style="font-size: 1.25rem;"></i>
-                            <span class="nav-link-text ms-1">User Profile</span>
+                            <span class="nav-link-text ms-1 d-none d-sm-inline">User Profile</span>
                         </a>
                     </li>
                     <li class="nav-item d-flex align-items-center">

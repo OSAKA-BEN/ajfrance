@@ -7,21 +7,16 @@ use App\Http\Livewire\Auth\ResetPassword;
 use App\Http\Livewire\Auth\SignUp;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\Billing;
 use App\Http\Livewire\Calendar;
-use App\Http\Livewire\Profile;
 use App\Http\Livewire\Tables;
-use App\Http\Livewire\Rtl;
 use App\Http\Livewire\SchoolScheduleManagement;
 use App\Http\Livewire\UserProfile;
 use App\Http\Livewire\UserManagement;
 use App\Http\Livewire\NewUser;
-use App\Http\Controllers\UserController;
 use App\Http\Livewire\EditUser;
 use App\Http\Livewire\LessonsList;
 
 
-use Illuminate\Http\Request;
 use App\Http\Livewire\Auth\Error404;
 use App\Http\Livewire\Auth\Error500;
 use App\Http\Livewire\LessonReservation;

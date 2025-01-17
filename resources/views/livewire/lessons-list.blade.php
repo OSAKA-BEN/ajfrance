@@ -7,7 +7,7 @@
                     <h5>{{ __('List of Lessons') }}</h5>
                     <p class="text-sm">List of your lessons</p>
                 </div>
-                <div class="mb-3 d-flex justify-content-start">
+                <div class="mb-3 mt-2 d-flex justify-content-start">
                     {{ $lessons->links('vendor.pagination.bootstrap-5') }}
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -23,10 +23,10 @@
                                     @else
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Teacher') }}</th>
                                     @endif
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Date') }}</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Statut') }}</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Type') }}</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Action') }}</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Date') }}</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Statut') }}</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Type') }}</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,7 +36,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ $lesson->teacher->profile_image ? asset('storage/'.$lesson->teacher->profile_image) : '../assets/img/marie.jpg' }}" class="avatar avatar-sm me-3">
+                                                        <img src="{{ $lesson->teacher->profile_image ? asset('storage/'.$lesson->teacher->profile_image) : '../assets/img/avatar-placeholder-none.png' }}" class="avatar avatar-sm me-3">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $lesson->teacher->name }}</h6>
@@ -45,9 +45,9 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="d-flex px-2 py-1">
+                                                <div class="d-flex  px-2 py-1">
                                                     <div>
-                                                        <img src="{{ $lesson->student->profile_image ? asset('storage/'.$lesson->student->profile_image) : asset('assets/img/team-3.jpg') }}" class="avatar avatar-sm me-3">
+                                                        <img src="{{ $lesson->student->profile_image ? asset('storage/'.$lesson->student->profile_image) : asset('assets/img/avatar-placeholder-none.png') }}" class="avatar avatar-sm me-3">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $lesson->student->name }}</h6>
@@ -59,7 +59,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ $lesson->student->profile_image ? asset('storage/'.$lesson->student->profile_image) : asset('assets/img/team-3.jpg') }}" class="avatar avatar-sm me-3">
+                                                        <img src="{{ $lesson->student->profile_image ? asset('storage/'.$lesson->student->profile_image) : asset('assets/img/avatar-placeholder-none.png') }}" class="avatar avatar-sm me-3">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $lesson->student->name }}</h6>
@@ -71,7 +71,7 @@
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
-                                                        <img src="{{ $lesson->teacher->profile_image ? asset('storage/'.$lesson->teacher->profile_image) : asset('assets/img/team-2.jpg') }}" class="avatar avatar-sm me-3">
+                                                        <img src="{{ $lesson->teacher->profile_image ? asset('storage/'.$lesson->teacher->profile_image) : asset('assets/img/avatar-placeholder-none.png') }}" class="avatar avatar-sm me-3">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $lesson->teacher->name }}</h6>

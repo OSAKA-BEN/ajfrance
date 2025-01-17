@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header d-flex align-items-center bg-gradient-dark">
                         <div class="d-flex align-items-center">
-                            <img src="{{ $teacher->profile_image ? asset('storage/'.$teacher->profile_image) : '../assets/img/marie.jpg' }}" 
+                            <img src="{{ $teacher->profile_image ? asset('storage/'.$teacher->profile_image) : '../assets/img/avatar-placeholder-none.png' }}" 
                                  class="avatar avatar-xxl me-4" 
                                  alt="teacher image">
                             <h2 class="mb-0 text-white">{{ $teacher->name }}</h2>

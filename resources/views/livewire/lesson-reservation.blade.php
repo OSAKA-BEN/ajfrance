@@ -27,22 +27,22 @@
 
                     <div class="row">
                         <div class="col-5 text-center justify-content-left align-items-start d-flex">
-                          <img src="{{ $teacher->profile_image ? asset('storage/'.$teacher->profile_image) : '../assets/img/marie.jpg' }}"  alt="img-blur-shadow"
-                          class="img-fluid shadow border-radius-xl"
-                          style="height: 200px; width: 200px;">
+                            <img src="{{ $teacher->profile_image ? asset('storage/'.$teacher->profile_image) : '../assets/img/avatar-placeholder-none.png' }}"  alt="img-blur-shadow"
+                            class="img-fluid shadow border-radius-xl"
+                            style="height: 200px; width: 200px;">
                         </div>
                         <div class="col-7">
                             <h3 class="">{{ $teacher->name }}</h3>
                             <label class="mt-4">Description</label>
-                              <p class="mb-4 text-sm">
+                                <p class="mb-4 text-sm">
                                 {{ $teacher->about }}
-                              </p>
+                                </p>
                             <div class="row">
                                 <div class="col">
                                     <label for="selectedDates.{{$teacher->id}}">Date</label>
                                     <input type="date" 
-                                           class="form-control @error('selectedDates.' . $teacher->id) is-invalid @enderror" 
-                                           wire:model="selectedDates.{{$teacher->id}}" />
+                                        class="form-control @error('selectedDates.' . $teacher->id) is-invalid @enderror" 
+                                        wire:model="selectedDates.{{$teacher->id}}" />
                                     @error('selectedDates.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="col">
@@ -59,13 +59,13 @@
                                 <div class="col">
                                     <label for="selectedTypes.{{$teacher->id}}">Type</label>
                                     <div class="d-flex justify-content-start align-items-end gap-4">
-                                      <div class="">
-                                        <input type="radio" id="type_skype_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="skype" wire:model="selectedTypes.{{$teacher->id}}">
-                                        <label class="form-check-label mb-0" for="type_skype_{{$teacher->id}}">Skype</label>
-                                        </div>
                                         <div class="">
-                                          <input type="radio" id="type_private_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="private" wire:model="selectedTypes.{{$teacher->id}}">
-                                          <label class="form-check-label mb-0" for="type_private_{{$teacher->id}}">Private</label>
+                                            <input type="radio" id="type_skype_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="skype" wire:model="selectedTypes.{{$teacher->id}}">
+                                            <label class="form-check-label mb-0" for="type_skype_{{$teacher->id}}">Skype</label>
+                                        </div>
+                                            <div class="">
+                                            <input type="radio" id="type_private_{{$teacher->id}}" name="selectedTypes.{{$teacher->id}}" value="private" wire:model="selectedTypes.{{$teacher->id}}">
+                                            <label class="form-check-label mb-0" for="type_private_{{$teacher->id}}">Private</label>
                                         </div>
                                     </div>
                                     @error('selectedTypes.' . $teacher->id) <span class="text-danger">{{ $message }}</span> @enderror
@@ -78,9 +78,9 @@
                             </button>
                         </div>
                     </div>
-                  </div>
                 </div>
-                @endforeach
+            </div>
+            @endforeach
         </div>
     </div>
 </div>

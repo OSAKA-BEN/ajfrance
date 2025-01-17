@@ -23,8 +23,31 @@ class TeacherAvailabilityManagement extends Component
         'newAbsence.*.start_date' => 'required|date|after_or_equal:today',
         'newAbsence.*.end_date' => 'required|date|after_or_equal:newAbsence.*.start_date',
         'newAbsence.*.type' => 'required|in:vacation,sick_leave,other',
-        'newAbsence.*.reason' => 'nullable|string'
+        'newAbsence.*.reason' => 'nullable'
     ];
+
+    protected function messages()
+    {
+        return [
+            'newAvailability.*.day_of_week.required' => 'Day is required',
+            'newAvailability.*.day_of_week.integer' => 'Day must be an integer.',
+            'newAvailability.*.day_of_week.between' => 'Day must be between 1 and 7.',
+            'newAvailability.*.opening_time.required' => 'Start time is required',
+            'newAvailability.*.opening_time.date_format' => 'Start time must be in the format H:i.',
+            'newAvailability.*.closing_time.required' => 'End time is required',
+            'newAvailability.*.closing_time.date_format' => 'End time must be in the format H:i.',
+            'newAvailability.*.closing_time.after' => 'End time must be after start time.',
+
+            'newAbsence.*.start_date.required' => 'Start date is required',
+            'newAbsence.*.start_date.date' => 'Start date must be a valid date',
+            'newAbsence.*.start_date.after_or_equal' => 'Start date must be today or a future date',
+            'newAbsence.*.end_date.required' => 'End date is required',
+            'newAbsence.*.end_date.date' => 'End date must be a valid date',
+            'newAbsence.*.end_date.after_or_equal' => 'End date must be after or equal to start date',
+            'newAbsence.*.type.required' => 'Type is required',
+            'newAbsence.*.type.in' => 'Type must be one of the following: vacation, sick_leave, other.',
+        ];
+    }
 
     public function mount()
     {
@@ -139,4 +162,5 @@ class TeacherAvailabilityManagement extends Component
     {
         return view('livewire.teacher-availability-management');
     }
+
 } 

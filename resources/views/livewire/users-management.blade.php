@@ -117,7 +117,7 @@
                     <a href="{{ route('new-user') }}" class="btn bg-gradient-info text-white btn-sm mb-0" type="button">+&nbsp; New User</a>
                 </div>
             </div>
-            <div class="mb-3 d-flex justify-content-start">
+            <div class="mb-3 mt-2 d-flex justify-content-start">
                 {{ $users->links('vendor.pagination.bootstrap-5') }}
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -159,7 +159,7 @@
                                 </td>
                                 <td>
                                     <div>
-                                        <img src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : '../assets/img/marie.jpg' }}" class="avatar avatar-sm me-3">
+                                        <img src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : '../assets/img/avatar-placeholder-none.png' }}" class="avatar avatar-sm me-3">
                                     </div>
                                 </td>
                                 <td class="text-center">

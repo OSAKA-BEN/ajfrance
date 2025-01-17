@@ -1,18 +1,18 @@
 <main>
-  <div class="container-fluid my-3 py-3 d-flex flex-column">
+    <div class="container-fluid my-3 py-3 d-flex flex-column">
 
-  @if ($showSuccessNotification)
-      <div class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
-          <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
-          <span class="alert-text text-white">The information has been successfully updated.</span>
-          <button wire:click="$set('showSuccessNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-          </button>
-      </div>
-  @endif
+    @if ($showSuccessNotification)
+        <div class="mt-3 alert alert-success alert-dismissible fade show" role="alert">
+            <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
+            <span class="alert-text text-white">The information has been successfully updated.</span>
+            <button wire:click="$set('showSuccessNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+    </div>
+@endif
 
-  @if ($showErrorNotification)
-      <div class="mt-3 alert alert-danger alert-dismissible fade show" role="alert">
-          <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
+@if ($showErrorNotification)
+    <div class="mt-3 alert alert-danger alert-dismissible fade show" role="alert">
+        <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
           <span class="alert-text text-white">{{ $errorMessage }}</span>
           <button wire:click="$set('showErrorNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
           </button>
@@ -38,7 +38,7 @@
                                           @if ($user->profile_image)
                                               <img src="{{ asset('storage/' . $user->profile_image) }}" class="avatar avatar-xl">
                                           @else
-                                              <img src="{{ '../assets/img/marie.jpg' }}" class="avatar avatar-xxl avatar-scale-up">
+                                              <img src="{{ '../assets/img/avatar-placeholder-none.png' }}" class="avatar avatar-xxl avatar-scale-up">
                                           @endif
                                       </div>
                                       <input type="file" wire:model="profile_image" class="form-control">

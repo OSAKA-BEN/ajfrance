@@ -11,7 +11,7 @@
                     @if ($user->profile_image)
                         <img src="{{ asset('storage/' . $user->profile_image) }}" class="w-100 border-radius-lg shadow-sm">
                     @else
-                        <img src="{{ '../assets/img/marie.jpg' }}" class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{ '../assets/img/avatar-placeholder-none.png' }}" class="w-100 border-radius-lg shadow-sm">
                     @endif
                     </div>
                 </div>

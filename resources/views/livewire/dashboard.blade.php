@@ -23,7 +23,7 @@
                                             @if ($user->profile_image)
                                                 <img class="w-100 mt-2 rounded-circle" src="{{ asset('storage/' . $user->profile_image) }}" alt="profile picture">
                                             @else
-                                                <img class="w-100 mt-2 rounded-circle" src="{{ '../assets/img/marie.jpg' }}" alt="profile picture">
+                                                <img class="w-100 mt-2 rounded-circle" src="{{ '../assets/img/avatar-placeholder-none.png' }}" alt="profile picture">
                                             @endif
                                         </div>
                                     </div>
@@ -156,31 +156,31 @@
 <script src="../../assets/js/plugins/countup.min.js"></script>
 <script>
 // Count To
-  if (document.getElementById('status1')) {
+if (document.getElementById('status1')) {
     const countUp = new CountUp('status1', document.getElementById("status1").getAttribute("countTo"));
     if (!countUp.error) {
-      countUp.start();
+        countUp.start();
     } else {
-      console.error(countUp.error);
+        console.error(countUp.error);
     }
-  }
-  if (document.getElementById('status2')) {
+}
+if (document.getElementById('status2')) {
     const countUp = new CountUp('status2', document.getElementById("status2").getAttribute("countTo"));
     if (!countUp.error) {
-      countUp.start();
+        countUp.start();
     } else {
-      console.error(countUp.error);
+        console.error(countUp.error);
     }
-  }
-  if (document.getElementById('status3')) {
+}
+if (document.getElementById('status3')) {
     const countUp = new CountUp('status3', document.getElementById("status3").getAttribute("countTo"));
     if (!countUp.error) {
-      countUp.start();
+        countUp.start();
     } else {
-      console.error(countUp.error);
+        console.error(countUp.error);
     }
-  }
-  if (document.getElementById('status4')) {
+}
+if (document.getElementById('status4')) {
     const countUp = new CountUp('status4', document.getElementById("status4").getAttribute("countTo"));
     if (!countUp.error) {
       countUp.start();

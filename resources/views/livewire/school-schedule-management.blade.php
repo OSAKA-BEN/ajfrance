@@ -30,7 +30,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="day_of_week">Day</label>
-                                    <select class="form-control" wire:model="newSchedule.day_of_week">
+                                    <select class="form-control @error('newSchedule.day_of_week') is-invalid @enderror" wire:model="newSchedule.day_of_week">
                                         <option value="">Select a day</option>
                                         <option value="1">Monday</option>
                                         <option value="2">Tuesday</option>
@@ -46,14 +46,14 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="opening_time">Opening Time</label>
-                                    <input type="time" class="form-control" wire:model="newSchedule.opening_time">
+                                    <input type="time" class="form-control @error('newSchedule.opening_time') is-invalid @enderror" wire:model="newSchedule.opening_time">
                                     @error('newSchedule.opening_time') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="closing_time">Closing Time</label>
-                                    <input type="time" class="form-control" wire:model="newSchedule.closing_time">
+                                    <input type="time" class="form-control @error('newSchedule.closing_time') is-invalid @enderror" wire:model="newSchedule.closing_time">
                                     @error('newSchedule.closing_time') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
@@ -134,14 +134,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" wire:model="newClosure.title">
+                                    <input type="text" class="form-control @error('newClosure.title') is-invalid @enderror" wire:model="newClosure.title">
                                     @error('newClosure.title') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Type</label>
-                                    <select class="form-control" wire:model="newClosure.type">
+                                    <select class="form-control @error('newClosure.type') is-invalid @enderror" wire:model="newClosure.type">
                                         <option value="">Select type</option>
                                         <option value="holiday">public holiday</option>
                                         <option value="vacation">Vacation</option>
@@ -155,21 +155,21 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Start Date</label>
-                                    <input type="date" class="form-control" wire:model="newClosure.start_date">
+                                    <input type="date" class="form-control @error('newClosure.start_date') is-invalid @enderror" wire:model="newClosure.start_date">
                                     @error('newClosure.start_date') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>End Date</label>
-                                    <input type="date" class="form-control" wire:model="newClosure.end_date">
+                                    <input type="date" class="form-control @error('newClosure.end_date') is-invalid @enderror" wire:model="newClosure.end_date">
                                     @error('newClosure.end_date') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="form-group mt-3">
                             <label>Description</label>
-                            <textarea class="form-control" wire:model="newClosure.description" rows="3"></textarea>
+                            <textarea class="form-control @error('newClosure.description') is-invalid @enderror" wire:model="newClosure.description" rows="3"></textarea>
                             @error('newClosure.description') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group mt-3 d-flex justify-content-end">

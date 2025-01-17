@@ -1,14 +1,16 @@
-<div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card card-calendar">
-                <div class="card-body p-3">
-                    <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
+<main class="main-content mt-1 border-radius-lg min-vh-100">
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card card-calendar">
+                    <div class="card-body p-3">
+                        <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <script src="../../assets/js/plugins/fullcalendar.min.js"></script>
 <script>

@@ -1,4 +1,4 @@
-<main class="main-content mt-1 border-radius-lg">
+<main class="main-content mt-1 border-radius-lg min-vh-100">
         <div class="container-fluid py-4">
         @if ($showSuccessNotification)
             <div class="mt-3 alert alert-success alert-dismissible fade show" role="alert">

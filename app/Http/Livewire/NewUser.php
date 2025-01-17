@@ -35,6 +35,7 @@ class NewUser extends Component
         'name' => 'Name',
         'email' => 'Email Address',
         'password' => 'Password',
+        'password_confirmation' => 'Password Confirmation',
         'phone' => 'Phone Number',
         'country' => 'Country',
         'address' => 'Address',
@@ -50,6 +51,7 @@ class NewUser extends Component
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
             'phone' => 'nullable',
             'country' => 'nullable',
             'address' => 'nullable',
@@ -57,6 +59,25 @@ class NewUser extends Component
             'state' => 'nullable',
             'zipcode' => 'nullable',
             'profile_image' => 'nullable|image|max:1024'
+        ];
+    }
+
+    protected function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'name.min' => 'Name must be at least 3 characters.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email address is already used.',
+            'password.required' => 'Password is required.',
+            'password.min' => 'Password must be at least 6 characters.',
+            'password.confirmed' => 'Passwords do not match.',
+            'password_confirmation.required' => 'Password Confirmation is required.',
+            'password_confirmation.min' => 'Password Confirmation must be at least 6 characters.',
+            'password_confirmation.confirmed' => 'Passwords do not match.',
+            'profile_image.image' => 'The file must be an image.',
+            'profile_image.max' => 'The image must not exceed 1024 Ko.',
         ];
     }
 

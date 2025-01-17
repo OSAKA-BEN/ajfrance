@@ -8,9 +8,10 @@ use App\Models\SchoolSchedule;
 use App\Models\SchoolClosure;
 use App\Models\TeacherAbsence;
 use App\Models\Availability;
-use App\Models\Reservation;
 use Livewire\Component;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LessonReservation extends Component
 {
@@ -43,6 +44,7 @@ class LessonReservation extends Component
             "selectedTypes.$teacherId" => 'required|in:skype,private',
         ]);
 
+        // Vérifier si l'utilisateur a assez de crédits
         if (!$this->checkStudentCredits()) {
             return $this->setError($teacherId, 'You don\'t have enough credits to book a lesson');
         }
@@ -66,16 +68,28 @@ class LessonReservation extends Component
         }
 
         try {
+            // Démarrer une transaction pour s'assurer que tout se passe bien
+            DB::beginTransaction();
+
+            // Créer la leçon
             $this->createLesson($teacherId, $startDateTime, $endDateTime);
+            
+            // Déduire 1 crédit de l'utilisateur
+            $user = Auth::user();
+            $user->decrement('credits', 1);
+
+            DB::commit();
+
             $this->handleSuccessfulReservation($teacherId);
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->setError($teacherId, 'An error occurred while booking the lesson');
         }
     }
 
     private function checkStudentCredits(): bool
     {
-        return auth()->user()->credits >= 1;
+        return Auth::user()->credits > 0;
     }
 
     private function createDateTime($teacherId): Carbon
@@ -119,7 +133,7 @@ class LessonReservation extends Component
         $teacherAbsence = TeacherAbsence::where('teacher_id', $teacher->id)
             ->where(function($query) use ($startDateTime) {
                 $query->whereDate('start_date', '<=', $startDateTime)
-                      ->whereDate('end_date', '>=', $startDateTime);
+                        ->whereDate('end_date', '>=', $startDateTime);
             })
             ->first();
 
@@ -178,14 +192,12 @@ class LessonReservation extends Component
     {
         Lesson::create([
             'teacher_id' => $teacherId,
-            'student_id' => auth()->id(),
+            'student_id' => Auth::user()->id,
             'start_datetime' => $startDateTime,
             'end_datetime' => $endDateTime,
             'lesson_type' => $this->selectedTypes[$teacherId],
             'status' => 'reserved'
         ]);
-
-        auth()->user()->decrement('credits');
     }
 
     private function handleSuccessfulReservation($teacherId): void
@@ -202,6 +214,21 @@ class LessonReservation extends Component
     {
         $this->showErrorNotification[$teacherId] = true;
         $this->errorMessage[$teacherId] = $message;
+    }
+
+    protected function messages()
+    {
+        return [
+            'selectedDates.*.required' => 'Date is required',
+            'selectedDates.*.date' => 'Date must be a valid date',
+            'selectedDates.*.after_or_equal' => 'Date must be today or a future date',
+            
+            'selectedTimes.*.required' => 'Time is required',
+            'selectedTimes.*.integer' => 'Time must be an integer',
+            'selectedTimes.*.between' => 'Time must be between 9 and 17',
+            
+            'selectedTypes.*.required' => 'Lesson type is required',
+        ];
     }
 
     public function render()

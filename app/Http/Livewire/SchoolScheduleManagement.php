@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 class SchoolScheduleManagement extends Component
 {
+
     // Pour les horaires réguliers
     public $schedules = [];
     public $newSchedule = [
@@ -53,11 +54,39 @@ class SchoolScheduleManagement extends Component
         'newClosure.description' => 'nullable|string'
     ];
 
+    
+    protected function messages()
+    {
+        return [
+            'newSchedule.day_of_week.required' => 'Day is required',
+            'newSchedule.day_of_week.integer' => 'Day must be an integer.',
+            'newSchedule.day_of_week.between' => 'Day must be between 1 and 7.',
+            'newSchedule.opening_time.required' => 'Opening time is required',
+            'newSchedule.opening_time.date_format' => 'Opening time must be in the format H:i.',
+            'newSchedule.closing_time.required' => 'Closing time is required',
+            'newSchedule.closing_time.date_format' => 'Closing time must be in the format H:i.',
+            'newSchedule.closing_time.after' => 'Closing time must be after opening time.',
+            'newSchedule.is_open.boolean' => 'Opening status must be true or false.',
+
+            'newClosure.title.required' => 'Title is required',
+            'newClosure.title.string' => 'Title must be a string.',
+            'newClosure.title.max' => 'Title must not exceed 255 characters.',
+            'newClosure.start_date.required' => 'Start date is required',
+            'newClosure.start_date.date' => 'Start date must be a valid date',
+            'newClosure.start_date.after_or_equal' => 'Start date must be today or a future date',
+            'newClosure.end_date.required' => 'End date is required',
+            'newClosure.end_date.date' => 'End date must be a valid date',
+            'newClosure.end_date.after_or_equal' => 'End date must be after or equal to start date',
+            'newClosure.type.required' => 'Closure type is required',
+            'newClosure.type.in' => 'Closure type must be one of the following: holiday, vacation, special_event.',
+            'newClosure.description.string' => 'Description must be a string.',
+        ];
+    }
+
     public function mount()
     {
         $this->loadSchedules();
         $this->loadClosures();
-        $this->teachers = User::where('role', 'teacher')->get();
     }
 
     private function loadSchedules()

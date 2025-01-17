@@ -59,7 +59,6 @@ class UserFactory extends Factory
             return [
                 'role' => 'admin',
                 'credits' => 0,
-                'profile_image' => 'profile-images/marie.jpg',
             ];
         });
     }
@@ -70,7 +69,6 @@ class UserFactory extends Factory
             return [
                 'role' => 'teacher',
                 'credits' => 0,
-                'profile_image' => 'profile-images/' . ['bruce-mars.jpg', 'ivana-square.jpg', 'kal-visuals-square.jpg'][array_rand(['bruce-mars.jpg', 'ivana-square.jpg', 'kal-visuals-square.jpg'])],
             ];
         });
     }
@@ -81,7 +79,6 @@ class UserFactory extends Factory
             return [
                 'role' => 'student',
                 'credits' => 2,
-                'profile_image' => 'profile-images/team-' . rand(1, 4) . '.jpg',
             ];
         });
     }
@@ -92,7 +89,6 @@ class UserFactory extends Factory
             return [
                 'role' => 'guest',
                 'credits' => 2,
-                'profile_image' => 'profile-images/team-' . rand(1, 4) . '.jpg',
             ];
         });
     }

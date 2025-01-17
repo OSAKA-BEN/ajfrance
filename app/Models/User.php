@@ -57,27 +57,27 @@ class User extends Authenticatable
         'credits'
     ];
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
-    public function isTeacher()
+    public function isTeacher(): bool
     {
         return $this->role === 'teacher';
     }
 
-    public function isStudent()
+    public function isStudent(): bool
     {
         return $this->role === 'student';
     }
 
-    public function isGuest()
+    public function isGuest(): bool
     {
         return $this->role === 'guest';
     }
 
-    public function hasRole($role)
+    public function hasRole(string $role)
     {
         return $this->role === $role;
     }
@@ -100,16 +100,6 @@ class User extends Authenticatable
     public function availabilities()
     {
         return $this->hasMany(Availability::class, 'user_id');
-    }
-
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class, 'teacher_id');
-    }
-
-    public function studentReservations()
-    {
-        return $this->hasMany(Reservation::class, 'student_id');
     }
 
     public function absences()
